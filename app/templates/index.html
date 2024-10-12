@@ -1,0 +1,254 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="jumbotron">
+  <h1 class="display-4">Spotify Songs</h1>
+  <p class="serif">Podras encontrar las mejores recomendaciones de canciones </p>
+  <hr class="my-4">
+  <p class="lead">El más eficiente</p>
+
+  <div class="search-container">
+    <form action="/consulta" method="post">
+      <input type="text" id="searchQuery" placeholder="Ingresa la Query...">
+      <input type="number" id="topk" placeholder="Ingresa el top K...">
+      <button id="selection-button" type="button">Buscar</button>
+    </form>
+  </div>
+
+  <div id="scroll-target" class="container">
+    <div class="button-container">
+      <button id="tablaA" class="selection-button active" onclick="seleccionarTabla('tablaA')">Index Invert</button>
+      <button id="tablaB" class="selection-button" onclick="seleccionarTabla('tablaB')">PostgreSQL</button>
+    </div> 
+  </div>
+
+  <div class="tiempo-ejecucion">
+    Tiempo de ejecución de la consulta: <span id="tiempo_consulta">0</span> segundos
+  </div>
+
+  <div class="pagination-buttons">
+    <button class="pagination-button disabled" onclick="previousPage()">Previous</button>
+    <button class="pagination-button" onclick="nextPage()">Next</button>
+  </div>
+</div>
+
+<!-- aquí se mostrará la tabla seleccionada -->
+<div id="tablaA-container" class="tabla-container" style="display: none;">
+  <table>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Gender</th>
+        <th>Master Category</th>
+        <th>Sub Category</th>
+        <th>Article Type</th>
+        <th>Base Colour</th>
+        <th>Season</th>
+        <th>Year</th>
+        <th>Usage</th>
+        <th>Product Display Name</th>
+        <th>Image</th>  
+      </tr>
+    </thead>
+    <tbody id="tablaA-body">
+      {% for result in resultados %}
+        <tr>
+          <td>{{ result[0] }}</td>
+          <td>{{ result[1] }}</td>
+          <td>{{ result[2] }}</td>
+          <td>{{ result[3] }}</td>
+          <td>{{ result[4] }}</td>
+          <td>{{ result[5] }}</td>
+          <td>{{ result[6] }}</td>
+          <td>{{ result[7] }}</td>
+          <td>{{ result[8] }}</td>
+          <td>{{ result[9] }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+
+<div id="tablaB-container" class="tabla-container" style="display: none;">
+  <table>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Gender</th>
+        <th>Master Category</th>
+        <th>Sub Category</th>
+        <th>Article Type</th>
+        <th>Base Colour</th>
+        <th>Season</th>
+        <th>Year</th>
+        <th>Usage</th>
+        <th>Product Display Name</th>
+      </tr>
+    </thead>
+    <tbody id="tablaB-body">
+    </tbody>
+  </table>
+</div>
+
+<script>
+function seleccionarTabla(tabla) {
+  const tablaA = document.getElementById('tablaA');
+  const tablaB = document.getElementById('tablaB');
+  const tablaAContainer = document.getElementById('tablaA-container');
+  const tablaBContainer = document.getElementById('tablaB-container');
+
+  if (tabla === 'tablaA') {
+    tablaA.classList.add('active');
+    tablaB.classList.remove('active');
+    tablaAContainer.style.display = 'block';
+    tablaBContainer.style.display = 'none';
+  } else if (tabla === 'tablaB') {
+    tablaA.classList.remove('active');
+    tablaB.classList.add('active');
+    tablaAContainer.style.display = 'none';
+    tablaBContainer.style.display = 'block';
+  }
+}
+
+let tiempoTblaA = 0;
+let tiempoTblaB = 0;
+function previousPage() {
+  // Implementa la lógica para ir a la página anterior
+  console.log(tiempoTblaA);
+}
+
+function nextPage() {
+  // Implementa la lógica para ir a la página siguiente
+  console.log(tiempoTblaB);
+}
+
+document.getElementById('selection-button').addEventListener('click', function() {
+  const searchTerm = document.getElementById('searchQuery').value;
+  const topK = document.getElementById('topk').value;
+  // Realiza la búsqueda según la tabla seleccionada
+  if (document.getElementById('tablaA').classList.contains('active')) {
+    searchTableA(searchTerm, topK);
+  } else if (document.getElementById('tablaB').classList.contains('active')) {
+    searchTableB(searchTerm, topK);
+  }
+});
+
+function searchTableA(searchTerm, topK) {
+  const start = performance.now();
+  const requestData = {
+    searchTerm:searchTerm,
+    topK:topK
+  };
+  
+  fetch('/search', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ searchTerm, topK }),
+  })
+  .then(response => response.json())
+  .then(data => {
+    const end = performance.now();
+    tiempoTblaA = (end - start) / 1000;
+    document.getElementById('tiempo_consulta').innerText = tiempoTblaA.toFixed(2) + ' segundos';
+    console.log('Success:', data);
+    document.getElementById('tablaA-body').innerHTML = '';
+    data.forEach(result => {
+      const rowData = result.split(',').map(item => item.trim().replace(/"/g, ''));
+      document.getElementById('tablaA-body').innerHTML += `
+        <tr>
+          <td style = "color: black;">${rowData[0]}</td>
+          <td style = "color: black;">${rowData[1]}</td>
+          <td style = "color: black;">${rowData[2]}</td>
+          <td style = "color: black;">${rowData[3]}</td>
+          <td style = "color: black;">${rowData[4]}</td>
+          <td style = "color: black;">${rowData[5]}</td>
+          <td style = "color: black;">${rowData[6]}</td>
+          <td style = "color: black;">${rowData[7]}</td>
+          <td style = "color: black;">${rowData[8]}</td>
+          <td style = "color: black;">${rowData[9]}</td>
+          <img src = "${rowData[10]}" width="100" height="100">
+          
+        </tr>
+      `;
+    });
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+}
+
+function searchTableB(searchTerm, topK) {
+  const start = performance.now();
+  const requestData = {
+    searchTerm:searchTerm,
+    topK:topK
+  };
+  
+  fetch('/consulta', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ searchTerm, topK }),
+  })
+  .then(response => response.json())
+  .then(data => {
+    const end = performance.now();
+    tiempoTblaB = (end - start) / 1000;
+    document.getElementById('tiempo_consulta').innerText = tiempoTblaB.toFixed(2) + ' segundos';
+    console.log('Success:', data);
+    document.getElementById('tablaB-body').innerHTML = '';
+    data.forEach(result => {
+      const rowData = result.map(item => typeof item === 'string' ? item.trim().replace(/"/g, '') : item); // Elimina comillas y espacios en cadenas
+      document.getElementById('tablaB-body').innerHTML += `
+        <tr>
+          <td style = "color: black;">${rowData[0]}</td>
+          <td style = "color: black;">${rowData[1]}</td>
+          <td style = "color: black;">${rowData[2]}</td>
+          <td style = "color: black;">${rowData[3]}</td>
+          <td style = "color: black;">${rowData[4]}</td>
+          <td style = "color: black;">${rowData[5]}</td>
+          <td style = "color: black;">${rowData[6]}</td>
+          <td style = "color: black;">${rowData[7]}</td>
+          <td style = "color: black;">${rowData[8]}</td>
+          <td style = "color: black;">${rowData[9]}</td>
+          
+        </tr>
+      `;
+    });
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+}
+
+</script>
+<style>
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+
+  .tabla-container {
+    background-color: rgba(255, 255, 255, 0.7); /* Fondo semi-transparente */
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+  }
+</style>
+
+{% endblock %}

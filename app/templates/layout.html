@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>DataFusion DB</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+    <header>
+        <h1>DataFusion DB</h1>
+        <nav>
+            <a href="{{ url_for('main.home') }}">Inicio</a>
+            <a href="{{ url_for('main.about') }}">Acerca de</a>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2024 DataFusion DB</p>
+    </footer>
+    <script src="{{ url_for('static', filename='src/script.js') }}"></script>
+</body>
+</html>
