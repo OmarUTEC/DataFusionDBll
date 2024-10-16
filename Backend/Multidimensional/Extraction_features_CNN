@@ -5,8 +5,6 @@ Descargamos las imágenes sin almacenarlas en el disco
 3. Alamcenamos como vectores característicos
 4. Guardamos en archivo binario: ID (int) + VECTOR(array flotante)
 
-'''
-
 import requests
 from io import BytesIO
 from tensorflow.keras.applications import InceptionV3
@@ -15,84 +13,54 @@ from tensorflow.keras.applications.inception_v3 import preprocess_input
 import numpy as np
 import pandas as pd
 import struct
+import gc  # Para liberar la memoria manualmente
 
-file_path = "images1.csv"
-data = pd.read_csv(file_path)
-
-#Usamos modelo preentrenado
-#no usamos capa fully commcected: false -> tranforma el modelo en un extractor
-#usamos: GAP -> Tranforma tensor 2D en un vector de 2048
+# Cargar el modelo InceptionV3 preentrenado
 modelo = InceptionV3(weights='imagenet', include_top=False, pooling='avg')
 
-def extrac_features_url(url):
-    # solicitamos los datos de URL: get.url, la respuesta sera en formato binario
-    response = requests.get(url)
-    #bytes convierte en archivo para que load lo lea, ademas permite trabajar con datos en memoria sin tener que escribir en el disco
-    img = image.load_img(BytesIO(response.content), target_size=(299,299))
-    #imagen cargada a un array de numpy -> tridimensional 299,299,3
-    img_array = image.img_to_array(img)
-
-    # Asi sea una imagen, le agregamos 1 -> representará 1 lote de solo una imagen ya que los modelos preentrenados esperan recibir lotes de imagenes para procesarlos a la vez
-
-    img_array = np.expand_dims(img_array, axis=0)
-    #preprocesamos la imagen para que sea compatible con Inceptionv3
-    #El preprocesamiento ajusta estos valores, asegurando que la imagen esté en el rango [-1, 1]
-    img_array = preprocess_input(img_array)
-
-    #Pasar la imagen preprocedaa a traves del modelo para extraer el vector
-    features = modelo.predict(img_array)
-    return features.flatten()
-
-
-'''
-for idx, row in data.iterrows():
-    url = row['link']  # Enlace de la imagen
-    filename = row['filename']  # Nombre del archivo de la imagen
-    
+# Función para extraer características de la imagen y guardarlas en un archivo binario
+def extrac_features_url(url, img_id, output_bin):
     try:
-        # Extraer el vector característico de la imagen
-        features = extrac_features_url(url).flatten()  # Convertimos el tensor 2D en 1D
-        
-        # Imprimir el nombre de la imagen y el vector característico
-        print(f"Características extraídas para {filename}:")
-        print(features)  # Imprime el vector de características
-        
+        # Descargar la imagen con requests
+        response = requests.get(url, timeout=10)  
+        if response.status_code == 200:
+            # Cargar la imagen en un array de NumPy
+            img = image.load_img(BytesIO(response.content), target_size=(299, 299))
+            img_array = image.img_to_array(img)
+            img_array = np.expand_dims(img_array, axis=0)
+            img_array = preprocess_input(img_array)
+
+            # Extraer el vector de características con InceptionV3
+            features = modelo.predict(img_array).flatten()
+
+            # Guardar el ID y el vector de características en el archivo binario
+            with open(output_bin, 'ab') as f:
+                f.write(struct.pack(f'i2048f', img_id, *features))
+
+            del img_array, features
+            gc.collect()  
+
+            print(f"Características extraídas y guardadas para la imagen ID {img_id}")
+        else:
+            print(f"Error al descargar la imagen ID {img_id}: Status code {response.status_code}")
     except Exception as e:
-        print(f"Error procesando la imagen {filename}: {str(e)}")
-
-print("Extracción completa.")
-'''
-
-def save_features_to_bin(filename, features,output):
-    
-      if len(features) != 2048:
-        print(f"Error: el vector de características para el ID {id} no tiene 2048 dimensiones.")
-        return  # Saltar esta imagen si no tiene el tamaño correcto
-    
-    # Empaquetar el ID (como entero) y los vectores de características (floats) en formato binario
-    # Usamos 'i' para el ID entero y 'f' para los floats del vector de características
-      with open(output, 'ab') as f:  # 'ab' es para agregar datos binarios
-        # Empaquetar el ID y los vectores de características en el archivo binario
-        f.write(struct.pack(f'i2048f', id, *features))
+        print(f"Error al procesar la imagen ID {img_id}: {str(e)}")
 
 
-output_bin = 'Vector_images.bin'
+def process_csv(file_path, output_bin):
+    data = pd.read_csv(file_path)
+    for idx, row in data.iterrows():
+        url = row['link']  # Enlace de la imagen (columna 'link')
+        try:
+            extrac_features_url(url, idx, output_bin)
+        except Exception as e:
+            print(f"Error procesando la imagen {idx}: {str(e)}")
+
+csv_file = 'images1.csv'  # Ruta del archivo CSV
+output_bin = 'vectors.bin'  # Nombre del archivo binario de salida
 
 
-for idx, row in data.iterrows():
-    url = row['link']  # Enlace de la imagen
-    id = idx  # Usar el índice de la iteración como el ID numérico en lugar del nombre del archivo
-    
-    try:
-        # Extraer el vector característico de la imagen
-        features = extrac_features_url(url)  # El vector ya está listo con 'features'
-        
-        # Guardar el ID de la imagen (numérico) y el vector característico en el archivo binario
-        save_features_to_bin(id, features, output_bin)
-        print(f"Características extraídas y guardadas para la imagen ID {id}")
-    
-    except Exception as e:
-        print(f"Error procesando la imagen {id}: {str(e)}")
+process_csv(csv_file, output_bin)
+print("Extracción de características completada.")
 
-print(f"Extracción completa. Los vectores característicos se han guardado en {output_bin}")
 
