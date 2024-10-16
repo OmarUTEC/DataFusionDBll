@@ -65,27 +65,34 @@ print("Extracción completa.")
 
 def save_features_to_bin(filename, features,output):
     
-    with open(output, 'ab') as f:
-        filename_bytes = filename.encode('utf-8')
-        f.write(struct.pack(f'100s2048f', filename_bytes,*features))
+      if len(features) != 2048:
+        print(f"Error: el vector de características para el ID {id} no tiene 2048 dimensiones.")
+        return  # Saltar esta imagen si no tiene el tamaño correcto
+    
+    # Empaquetar el ID (como entero) y los vectores de características (floats) en formato binario
+    # Usamos 'i' para el ID entero y 'f' para los floats del vector de características
+      with open(output, 'ab') as f:  # 'ab' es para agregar datos binarios
+        # Empaquetar el ID y los vectores de características en el archivo binario
+        f.write(struct.pack(f'i2048f', id, *features))
 
 
 output_bin = 'Vector_images.bin'
 
 
 for idx, row in data.iterrows():
-    img_url = row['link']  # Enlace de la imagen
-    img_filename = row['filename']  # Nombre del archivo de la imagen
+    url = row['link']  # Enlace de la imagen
+    id = idx  # Usar el índice de la iteración como el ID numérico en lugar del nombre del archivo
     
     try:
         # Extraer el vector característico de la imagen
-        features = extrac_features_url(img_url)  # El vector ya está listo con 'features'
+        features = extrac_features_url(url)  # El vector ya está listo con 'features'
         
-        # Guardar el nombre de la imagen y el vector característico en el archivo binario
-        save_features_to_bin(img_filename, features, output_bin)
-        print(f"Características extraídas y guardadas para {img_filename}")
+        # Guardar el ID de la imagen (numérico) y el vector característico en el archivo binario
+        save_features_to_bin(id, features, output_bin)
+        print(f"Características extraídas y guardadas para la imagen ID {id}")
     
     except Exception as e:
-        print(f"Error procesando la imagen {img_filename}: {str(e)}")
+        print(f"Error procesando la imagen {id}: {str(e)}")
 
 print(f"Extracción completa. Los vectores característicos se han guardado en {output_bin}")
+
