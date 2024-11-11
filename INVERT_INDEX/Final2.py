@@ -11,12 +11,12 @@ from typing import Dict
 nltk.download('punkt')
 
 TAMANIO_CHUNK = int(io.DEFAULT_BUFFER_SIZE * 4.15)  # Número de filas por chunk
-RUTA_INDICE_LOCAL = r"C:\Users\semin\BD2"
-RUTA_INDICE_FINAL = r"C:\Users\semin\BD2"
-RUTA_ARCHIVO_CSV = r"C:\Users\semin\BD2\spotify_songs.csv"
-RUTA_STOPLIST = r"C:\Users\semin\BD2\stoplist.csv"
-RUTA_NORMAS = r"C:\Users\semin\BD2\normas.json"
-RUTA_PESOS_CAMPO = r"C:\Users\semin\BD2\pesos_campos.json"  # Ruta para los pesos preprocesados
+RUTA_INDICE_LOCAL = r"/home/omarch/Escritorio/BD2/DataFusionDBll/INVERT_INDEX"
+RUTA_INDICE_FINAL = r"/home/omarch/Escritorio/BD2/DataFusionDBll/INVERT_INDEX"
+RUTA_ARCHIVO_CSV = r"../test.csv"
+RUTA_STOPLIST = r"stopwords_personalizadas.csv"
+RUTA_NORMAS = r"normas.json"
+RUTA_PESOS_CAMPO = r"pesos_campos.json"  # Ruta para los pesos preprocesados
 
 class IndiceInvertido:
     def __init__(self, ruta_csv: str, ruta_stoplist: str, ruta_indice: str, ruta_normas: str, ruta_pesos: str):
@@ -242,42 +242,73 @@ class MotorConsulta:
             print(f"Error al cargar los documentos: {e}")
         return documentos
 
-# Ejemplo de Uso
-if __name__ == "__main__":
-    # Paso 1:  para calcular y guardar los pesos
+# INVERT_INDEX/Final2.py
 
-    # Paso 2: construir el rndice rnvertido 
-    indice = IndiceInvertido(
-        ruta_csv=RUTA_ARCHIVO_CSV,
-        ruta_stoplist=RUTA_STOPLIST,
-        ruta_indice=RUTA_INDICE_LOCAL,
-        ruta_normas=RUTA_NORMAS,
-        ruta_pesos=RUTA_PESOS_CAMPO  # Ruta para los pesos preprocesados
-    )
-    indice.construir_indice()
+import json
 
-    # Paso 3: inicializar el Motor de C¿consulta con la ruta_csv y ruta_stoplist
-    motor_busqueda = MotorConsulta(
-        ruta_csv=RUTA_ARCHIVO_CSV,
-        ruta_indice=RUTA_INDICE_LOCAL,
-        ruta_normas=RUTA_NORMAS,
-        ruta_stoplist=RUTA_STOPLIST
-    )
+# Rutas que probablemente estés utilizando en tu código
+TAMANIO_CHUNK = int(io.DEFAULT_BUFFER_SIZE * 4.15)  # Número de filas por chunk
+RUTA_INDICE_LOCAL = r"/home/omarch/Escritorio/BD2/DataFusionDBll/INVERT_INDEX"
+RUTA_INDICE_FINAL = r"/home/omarch/Escritorio/BD2/DataFusionDBll/INVERT_INDEX"
+RUTA_ARCHIVO_CSV = r"../test.csv"
+RUTA_STOPLIST = r"stopwords_personalizadas.csv"
+RUTA_NORMAS = r"normas.json"
+RUTA_PESOS_CAMPO = r"pesos_campos.json" 
 
-@app.route('/buscar', methods=['GET'])
-def buscar():
-    consulta_usuario = request.args.get('consulta', '')
-    top_k = int(request.args.get('top_k', 10))
-    resultados_busqueda = motor_busqueda.buscar(consulta_usuario, top_k=top_k)
-    return jsonify(resultados_busqueda)
+import json
+import pandas as pd
 
-    # Paso 4: Procesar una Consulta
-    consulta_usuario = "I Feel Alive"
-    terminos_procesados = motor_busqueda.procesar_consulta(consulta_usuario)
-    print("Términos Procesados de la Consulta:", terminos_procesados)
+# Ruta exactas que has proporcionado
+RUTA_INDICE_LOCAL = r"/home/omarch/Escritorio/BD2/DataFusionDBll/INVERT_INDEX"
+RUTA_ARCHIVO_CSV = r"../test.csv"
+RUTA_STOPLIST = r"stopwords_personalizadas.csv"
+RUTA_NORMAS = r"normas.json"
+RUTA_PESOS_CAMPO = r"pesos_campos.json"
 
-    # Paso 5: Buscar y Recuperar los Top K Resultados
-    top_k = 10
-    resultados_busqueda = motor_busqueda.buscar(consulta_usuario, top_k=top_k)
-    print(f"Top {top_k} Resultados de Búsqueda:")
-    print(json.dumps(resultados_busqueda, indent=2, ensure_ascii=False))
+
+
+# Asegúrate de que las rutas sean correctas y que los archivos existan
+def generar_resultados_busqueda(consulta_usuario, top_k):
+    try:
+        # Paso 1: Inicializar el Motor de Búsqueda con las rutas correctas
+        motor_busqueda = MotorConsulta(
+            ruta_csv=RUTA_ARCHIVO_CSV,  # Ruta correcta para el archivo CSV
+            ruta_indice=RUTA_INDICE_LOCAL,  # Ruta del índice
+            ruta_normas=RUTA_NORMAS,  # Ruta para las normas
+            ruta_stoplist=RUTA_STOPLIST  # Ruta para el archivo stoplist
+        )
+        
+        # Paso 2: Procesar la consulta
+        terminos_procesados = motor_busqueda.procesar_consulta(consulta_usuario)
+        print("Términos Procesados de la Consulta:", terminos_procesados)
+        
+        # Paso 3: Realizar la búsqueda
+
+        resultados_busqueda = motor_busqueda.buscar(consulta_usuario, top_k=top_k)
+        
+        if resultados_busqueda:
+            # Si se encuentran resultados, los mostramos
+            print(f"Top {top_k} Resultados de Búsqueda:")
+            print(json.dumps(resultados_busqueda, indent=2, ensure_ascii=False))
+            
+            # Paso 4: Guardar los resultados en un archivo JSON
+            ruta_resultados = "../app/resultados_busqueda.json"
+            with open(ruta_resultados, 'w', encoding='utf-8') as archivo:
+                json.dump(resultados_busqueda, archivo, indent=2, ensure_ascii=False)
+            
+            print(f"Resultados guardados en: {ruta_resultados}")
+        else:
+            print("No se encontraron resultados para la consulta.")
+            # Si no hay resultados, puedes guardar un archivo vacío o con un mensaje de error
+            with open("resultados_busqueda.json", 'w', encoding='utf-8') as archivo:
+                json.dump({"error": "No se encontraron resultados"}, archivo, indent=2, ensure_ascii=False)
+    
+    except Exception as e:
+        print(f"Error al generar los resultados de búsqueda: {e}")
+        # Guardar el error en el archivo de resultados
+        with open("resultados_busqueda.json", 'w', encoding='utf-8') as archivo:
+            json.dump({"error": str(e)}, archivo, indent=2, ensure_ascii=False)
+
+# Llamada de ejemplo a la función con una consulta de prueba
+consulta_usuario = "I Feel Alive"
+generar_resultados_busqueda(consulta_usuario, 10)

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Data</title>
+    <style>
+        .track-info { margin: 20px; border: 1px solid #ccc; padding: 10px; }
+    </style>
+</head>
+<body>
+    <button onclick="fetchData()">Show Data</button>
+    <div id="data-container"></div>
+
+    <script>
+        function fetchData() {
+            fetch('/get_data')
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById('data-container');
+                    container.innerHTML = '';  // Clear previous content
+
+                    Object.keys(data).forEach(key => {
+                        const track = data[key];
+                        const trackDiv = document.createElement('div');
+                        trackDiv.classList.add('track-info');
+                        trackDiv.innerHTML = `
+                            <h3>Track Name: ${track.track_name}</h3>
+                            <p>Artist: ${track.track_artist}</p>
+                            <p>Album: ${track.track_album_name}</p>
+                            <p>Genre: ${track.playlist_genre}</p>
+                            <p>Popularity: ${track.track_popularity}</p>
+                            <p>Danceability: ${track.danceability}</p>
+                            <p>Energy: ${track.energy}</p>
+                            <p>Lyrics: ${track.lyrics}</p>
+                        `;
+                        container.appendChild(trackDiv);
+                    });
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        }
+    </script>
+</body>
+</html>

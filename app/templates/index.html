@@ -33,37 +33,68 @@
   </div>
 </div>
 
-<!-- aquí se mostrará la tabla seleccionada -->
+<!-- Tabla A: Campos más importantes -->
 <div id="tablaA-container" class="tabla-container" style="display: none;">
   <table>
     <thead>
       <tr>
-        <th>Id</th>
-        <th>Gender</th>
-        <th>Master Category</th>
-        <th>Sub Category</th>
-        <th>Article Type</th>
-        <th>Base Colour</th>
-        <th>Season</th>
-        <th>Year</th>
-        <th>Usage</th>
-        <th>Product Display Name</th>
-        <th>Image</th>  
+        <th>Track ID</th>
+        <th>Track Name</th>
+        <th>Artist</th>
+        <th>Popularity</th>
+        <th>Album Name</th>
+        <th>Release Date</th>
+        <th>Playlist Name</th>
+        <th>Playlist Genre</th>
+        <th>Duration (ms)</th>
       </tr>
     </thead>
     <tbody id="tablaA-body">
       {% for result in resultados %}
         <tr>
-          <td>{{ result[0] }}</td>
-          <td>{{ result[1] }}</td>
-          <td>{{ result[2] }}</td>
-          <td>{{ result[3] }}</td>
-          <td>{{ result[4] }}</td>
-          <td>{{ result[5] }}</td>
-          <td>{{ result[6] }}</td>
-          <td>{{ result[7] }}</td>
-          <td>{{ result[8] }}</td>
-          <td>{{ result[9] }}</td>
+          <td>{{ result.track_id }}</td>
+          <td>{{ result.track_name }}</td>
+          <td>{{ result.track_artist }}</td>
+          <td>{{ result.track_popularity }}</td>
+          <td>{{ result.track_album_name }}</td>
+          <td>{{ result.track_album_release_date }}</td>
+          <td>{{ result.playlist_name }}</td>
+          <td>{{ result.playlist_genre }}</td>
+          <td>{{ result.duration_ms }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<!-- Tabla B: Campos más importantes -->
+<div id="tablaB-container" class="tabla-container" style="display: none;">
+  <table>
+    <thead>
+      <tr>
+        <th>Track ID</th>
+        <th>Track Name</th>
+        <th>Artist</th>
+        <th>Popularity</th>
+        <th>Album Name</th>
+        <th>Release Date</th>
+        <th>Playlist Name</th>
+        <th>Playlist Genre</th>
+        <th>Duration (ms)</th>
+      </tr>
+    </thead>
+    <tbody id="tablaB-body">
+      {% for result in resultados %}
+        <tr>
+          <td>{{ result.track_id }}</td>
+          <td>{{ result.track_name }}</td>
+          <td>{{ result.track_artist }}</td>
+          <td>{{ result.track_popularity }}</td>
+          <td>{{ result.track_album_name }}</td>
+          <td>{{ result.track_album_release_date }}</td>
+          <td>{{ result.playlist_name }}</td>
+          <td>{{ result.playlist_genre }}</td>
+          <td>{{ result.duration_ms }}</td>
         </tr>
       {% endfor %}
     </tbody>
@@ -71,26 +102,6 @@
 </div>
 
 
-<div id="tablaB-container" class="tabla-container" style="display: none;">
-  <table>
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th>Gender</th>
-        <th>Master Category</th>
-        <th>Sub Category</th>
-        <th>Article Type</th>
-        <th>Base Colour</th>
-        <th>Season</th>
-        <th>Year</th>
-        <th>Usage</th>
-        <th>Product Display Name</th>
-      </tr>
-    </thead>
-    <tbody id="tablaB-body">
-    </tbody>
-  </table>
-</div>
 
 <script>
 function seleccionarTabla(tabla) {
