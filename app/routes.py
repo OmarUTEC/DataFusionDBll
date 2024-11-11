@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, jsonify, request
-from INVERT_INDEX.Final2 import generar_resultados_busqueda  # Asegúrate de importar la función correcta
+from INVERT_INDEX.Final2 import generar_resultados_busqueda 
 import json
 import os
 
