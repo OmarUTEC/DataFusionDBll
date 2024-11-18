@@ -1,4 +1,4 @@
-# Proyecto: [Nombre del Proyecto]
+# Proyecto: Búsqueda y Recuperación de la Información
 
 ### Descripción
 Este proyecto es una aplicación web que permite realizar búsquedas avanzadas en una base de datos de canciones de Spotify, mostrando información relevante como ID, nombre, artista, popularidad y álbum. Combina un backend en Python con Flask y PostgreSQL con un frontend desarrollado en HTML, CSS y JavaScript.
@@ -6,7 +6,7 @@ Este proyecto es una aplicación web que permite realizar búsquedas avanzadas e
 ---
 
 ## Características principales
-- Búsqueda optimizada utilizando `plainto_tsquery` en PostgreSQL.
+- Búsqueda optimizada utilizando índice invertido
 - Visualización de resultados con campos clave:
   - `Track ID`
   - `Track Name`
