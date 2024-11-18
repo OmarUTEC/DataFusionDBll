@@ -47,6 +47,7 @@ Este proyecto es una aplicación web que permite realizar búsquedas avanzadas e
 │   └── script.js              # Lógica de interacción con el usuario
 │
 └── README.md                  # Documentación del proyecto
+```
 
 ## Interfaz del usuario principal
 
