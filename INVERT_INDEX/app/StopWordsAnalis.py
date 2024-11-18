@@ -96,7 +96,8 @@ def graficar_frecuencia_entropia_barras(word_freq, word_entropy, top_n=15):
     plt.show()
 
 if __name__ == '__main__':
-    ruta_csv_entrada = r'C:\Users\semin\BD2\spotify_songs.csv'  
+    #ruta_csv_entrada = 'C:\Users\semin\BD2\spotify_songs.csv'  
+    ruta_csv_entrada = r"/home/omarch/Escritorio/BD2/DataFusionDBll/INVERT_INDEX/spotify_songs.csv"
     ruta_csv_stopwords_salida = 'stopwords_personalizadas3.csv' 
     
     generar_stopwords_desde_csv(ruta_csv_entrada, ruta_csv_stopwords_salida)

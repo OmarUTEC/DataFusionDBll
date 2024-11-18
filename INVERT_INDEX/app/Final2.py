@@ -10,13 +10,23 @@ from typing import Dict
 
 nltk.download('punkt')
 
+"""
 TAMANIO_CHUNK = 467258 #  filas por chunk esto basandonos en el uso del 10%de la memoria disponible
-RUTA_INDICE_LOCAL = r"C:\Users\semin\BD2"
-RUTA_INDICE_FINAL = r"C:\Users\semin\BD2"
-RUTA_ARCHIVO_CSV = r"C:\Users\semin\BD2\spotify_songs.csv"
-RUTA_STOPLIST = r"C:\Users\semin\BD2\stoplist.csv"
-RUTA_NORMAS = r"C:\Users\semin\BD2\normas.json"  # ruta normas 
-RUTA_PESOS_CAMPO = r"C:\Users\semin\BD2\pesos_campos.json"  #ruta para los pesos 
+RUTA_INDICE_LOCAL = "C:\\Users\\semin\\BD2"
+RUTA_INDICE_FINAL = "C:\\Users\\semin\\BD2"
+RUTA_ARCHIVO_CSV = "C:\\Users\\semin\\BD2\\spotify_songs.csv"
+RUTA_STOPLIST = "C:\\Users\\semin\\BD2\\stoplist.csv"
+RUTA_NORMAS = "C:\\Users\\semin\\BD2\\normas.json"  # ruta normas 
+RUTA_PESOS_CAMPO = "C:\\Users\\semin\\BD2\\pesos_campos.json"  #ruta para los pesos 
+"""
+
+TAMANIO_CHUNK = 467258 #  filas por chunk esto basandonos en el uso del 10%de la memoria disponible
+RUTA_INDICE_LOCAL = r"/home/omarch/Escritorio/BD2/DataFusionDBll/INVERT_INDEX"
+RUTA_INDICE_FINAL = r"/home/omarch/Escritorio/BD2/DataFusionDBll/INVERT_INDEX"
+RUTA_ARCHIVO_CSV = r"/home/omarch/Escritorio/BD2/DataFusionDBll/INVERT_INDEX/spotify_songs.csv"
+RUTA_STOPLIST = r"/home/omarch/Escritorio/BD2/DataFusionDBll/INVERT_INDEX/stoplist.csv"
+RUTA_NORMAS = r"/home/omarch/Escritorio/BD2/DataFusionDBll/INVERT_INDEX/normas.json"  # ruta normas 
+RUTA_PESOS_CAMPO = r"/home/omarch/Escritorio/BD2/DataFusionDBll/INVERT_INDEX/pesos_campos.json"
 
 class IndiceInvertido:
     def __init__(self, ruta_csv: str, ruta_stoplist: str, ruta_indice: str, ruta_normas: str, ruta_pesos: str):
