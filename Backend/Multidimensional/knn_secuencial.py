@@ -17,7 +17,7 @@ class knnsecuencial:
         self.url_csv_file = url_csv_file
         self.url_map = pd.read_csv(url_csv_file)
         self.distancias = {}
-        self.vectors = []  
+        self.vectors = []  # Inicializar self.vectors como una lista vacía
 
     def euclidean_distance(self, x, y):
         return np.sqrt(np.sum((x - y) ** 2))
@@ -38,10 +38,12 @@ class knnsecuencial:
 
     def knn_range_search(self, query, radius):
         neighbors = []
+        seen_indices = set()  # Conjunto para evitar vecinos duplicados
 
         def process_function(index, vector, query):
             distance = self.euclidean_distance(vector, query)
-            if distance <= radius:
+            if distance <= radius and index not in seen_indices:
+                seen_indices.add(index)
                 row = self.url_map.iloc[index]
                 filename = row['filename']
                 url = row['link']
@@ -113,9 +115,12 @@ class knnsecuencial:
             writer.writerow(["Radius", "Index", "Filename", "Distance", "Link"])
             for radius in recommended_radii:
                 neighbors = self.knn_range_search(query, radius)
+                seen_indices = set()  # Conjunto para evitar vecinos duplicados en el archivo CSV
                 if neighbors:
                     for neighbor in neighbors:
-                        writer.writerow([radius] + list(neighbor))
+                        if neighbor[0] not in seen_indices:
+                            seen_indices.add(neighbor[0])
+                            writer.writerow([radius] + list(neighbor))
                 else:
                     writer.writerow([radius, "No hay vecinos", "No hay vecinos", "No hay vecinos", "No hay vecinos"])
 
@@ -124,8 +129,11 @@ class knnsecuencial:
         with open(filename, mode='w', newline='') as csv_file:
             writer = csv.writer(csv_file)
             writer.writerow(["Index", "Filename", "Distance", "Link"])
+            seen_indices = set()  # Conjunto para evitar vecinos duplicados en el archivo CSV
             for neighbor in neighbors:
-                writer.writerow(neighbor)
+                if neighbor[0] not in seen_indices:
+                    seen_indices.add(neighbor[0])
+                    writer.writerow(neighbor)
 
 # Crear una instancia de knnsecuencial
 knn_seq = knnsecuencial()
