@@ -6,59 +6,77 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 VECTOR_SIZE = 2048
-BINARY_FILE = 'vectors.bin'
+BINARY_FILE = 'output.bin'
+POSITION_DATA_FILE = 'position_data.bin'
 URL_CSV_FILE = 'images1.csv'
 BATCH_SIZE = 1000  # Tamaño del lote
 
 class knnsecuencial:
-    def __init__(self, vector_size=VECTOR_SIZE, binary_file=BINARY_FILE, url_csv_file=URL_CSV_FILE):
+    def __init__(self, vector_size=VECTOR_SIZE, binary_file=BINARY_FILE, position_data_file=POSITION_DATA_FILE, url_csv_file=URL_CSV_FILE):
         self.vector_size = vector_size
         self.binary_file = binary_file
+        self.position_data_file = position_data_file
         self.url_csv_file = url_csv_file
         self.url_map = pd.read_csv(url_csv_file)
         self.distancias = {}
-        self.vectors = []  # Inicializar self.vectors como una lista vacía
+        self.vectors = []
+        self.positions = self.load_positions()
+
+    def load_positions(self):
+        positions = []
+        with open(self.position_data_file, 'rb') as f:
+            while True:
+                data = f.read(4)
+                if not data:
+                    break
+                position = struct.unpack('i', data)[0]
+                positions.append(position)
+        return positions
 
     def euclidean_distance(self, x, y):
         return np.sqrt(np.sum((x - y) ** 2))
 
-    def process_batches(self, query, process_function):
+    def get_vector(self, index):
+        position = self.positions[index]
         with open(self.binary_file, 'rb') as f:
-            while True:
-                data = f.read(BATCH_SIZE * (4 + 4 * self.vector_size))
-                if not data:
-                    break
-                for i in range(0, len(data), 4 + 4 * self.vector_size):
-                    chunk = data[i:i + 4 + 4 * self.vector_size]
-                    if len(chunk) < 4 + 4 * self.vector_size:
-                        continue
-                    index = struct.unpack('i', chunk[:4])[0]
-                    vector = np.array(struct.unpack(f'{self.vector_size}f', chunk[4:]))
-                    process_function(index, vector, query)
+            f.seek(position)
+            data = f.read(4 + 4 * self.vector_size)
+            if len(data) < 4 + 4 * self.vector_size:
+                return None
+            vector = np.array(struct.unpack(f'{self.vector_size}f', data[4:]))
+        return vector
+
+    def process_batches(self, query, process_function):
+        for index in range(len(self.positions)):
+            vector = self.get_vector(index)
+            if vector is not None:
+                process_function(index, vector, query)
 
     def knn_range_search(self, query, radius):
         neighbors = []
-        seen_indices = set()  # Conjunto para evitar vecinos duplicados
+        seen_indices = set()  
 
         def process_function(index, vector, query):
             distance = self.euclidean_distance(vector, query)
             if distance <= radius and index not in seen_indices:
                 seen_indices.add(index)
-                row = self.url_map.iloc[index]
-                filename = row['filename']
-                url = row['link']
-                neighbors.append((index, filename, distance, radius, url))
+                if index < len(self.url_map):  
+                    row = self.url_map.iloc[index]
+                    filename = row['filename']
+                    url = row['link']
+                    neighbors.append((index, filename, distance, radius, url))
+                else:
+                    print(f"Índice {index} fuera de rango para el DataFrame")
 
         self.process_batches(query, process_function)
         return neighbors
 
     def knn_search_linear(self, query, k):
         heap = []
-        unique_neighbors = set()  # Conjunto para evitar vecinos duplicados en el heap
+        unique_neighbors = set() 
 
         def process_function(index, vector, query):
             distance = self.euclidean_distance(vector, query)
-            # Solo agregar al heap si el índice no ha sido visto antes
             if index not in unique_neighbors:
                 unique_neighbors.add(index)
                 heapq.heappush(heap, (-distance, index))
@@ -70,10 +88,13 @@ class knnsecuencial:
 
         neighbors = []
         for dist, index in sorted(heap, reverse=True):
-            row = self.url_map.iloc[index]
-            filename = row['filename']
-            url = row['link']
-            neighbors.append((index, filename, -dist, url))
+            if index < len(self.url_map):  
+                row = self.url_map.iloc[index]
+                filename = row['filename']
+                url = row['link']
+                neighbors.append((index, filename, -dist, url))
+            else:
+                print(f"Índice {index} fuera de rango para el DataFrame")
 
         return neighbors
 
@@ -81,19 +102,11 @@ class knnsecuencial:
         distances = []
         vectors = []
 
-        # Cargar todos los vectores en una lista
-        with open(self.binary_file, 'rb') as f:
-            while True:
-                data = f.read(BATCH_SIZE * (4 + 4 * self.vector_size))
-                if not data:
-                    break
-                for i in range(0, len(data), 4 + 4 * self.vector_size):
-                    chunk = data[i:i + 4 + 4 * self.vector_size]
-                    if len(chunk) < 4 + 4 * self.vector_size:
-                        continue
-                    index = struct.unpack('i', chunk[:4])[0]
-                    vector = np.array(struct.unpack(f'{self.vector_size}f', chunk[4:]))
-                    vectors.append((index, vector))
+
+        for index in range(len(self.positions)):
+            vector = self.get_vector(index)
+            if vector is not None:
+                vectors.append((index, vector))
 
         n = len(vectors)
         for i in range(n):
@@ -115,7 +128,7 @@ class knnsecuencial:
             writer.writerow(["Radius", "Index", "Filename", "Distance", "Link"])
             for radius in recommended_radii:
                 neighbors = self.knn_range_search(query, radius)
-                seen_indices = set()  # Conjunto para evitar vecinos duplicados en el archivo CSV
+                seen_indices = set() 
                 if neighbors:
                     for neighbor in neighbors:
                         if neighbor[0] not in seen_indices:
@@ -129,7 +142,7 @@ class knnsecuencial:
         with open(filename, mode='w', newline='') as csv_file:
             writer = csv.writer(csv_file)
             writer.writerow(["Index", "Filename", "Distance", "Link"])
-            seen_indices = set()  # Conjunto para evitar vecinos duplicados en el archivo CSV
+            seen_indices = set() 
             for neighbor in neighbors:
                 if neighbor[0] not in seen_indices:
                     seen_indices.add(neighbor[0])
