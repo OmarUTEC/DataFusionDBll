@@ -108,6 +108,9 @@ Estas imágenes serán utilizadas en el proyecto para realizar las búsquedas vi
 
 
 ## Librerías utilizadas
+### Para la creación del indice se utilizaron las siguientes librerias : 
+
+
 [Contenido de la sección aquí]
 
 ## Técnica de indexación de las librerías utilizadas - Índice multimedia
