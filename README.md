@@ -61,7 +61,7 @@ Este proyecto es una aplicación web que permite realizar búsquedas avanzadas e
 
 # Tabla de contenidos
 ## Introducción
-- [Datos](#descripción-del-dominio-de-datos)
+- [Datos](#Datos)
 - [Librerías utilizadas](#librerías-utilizadas)
 - [Técnicas de indexación (usando indice invertido)](#técnica-de-indexación-de-las-librerías-utilizadas---índice-multimedia)
 - [Ténica Multimedia (usando Knn)](#como-se-realiza-el-knn-search-y-el-range-search)
@@ -84,8 +84,8 @@ Este proyecto es una aplicación web que permite realizar búsquedas avanzadas e
 - [Análisis y discusión](#análisis-y-discusión)
 
 <!-- Secciones -->
-## Descripción del dominio de datos
-[Contenido de la sección aquí]
+## Datos
+[Sobre los datos ]
 
 ## Librerías utilizadas
 [Contenido de la sección aquí]
