@@ -59,6 +59,75 @@ Este proyecto es una aplicación web que permite realizar búsquedas avanzadas e
 
 
 
+# Tabla de contenidos
+## Introducción
+- [Descripción del dominio de datos](#descripción-del-dominio-de-datos)
+- [Librerías utilizadas](#librerías-utilizadas)
+- [Técnica de indexación de las librerías utilizadas - Índice multimedia](#técnica-de-indexación-de-las-librerías-utilizadas---índice-multimedia)
+- [Como se realiza el KNN Search y el Range Search](#como-se-realiza-el-knn-search-y-el-range-search)
+
+## Backend
+- [Construcción del índice invertido](#construcción-del-índice-invertido)
+- [Manejo de memoria secundaria](#manejo-de-memoria-secundaria)
+- [Ejecución óptima de consultas](#ejecución-óptima-de-consultas)
+
+## Maldición de la dimensionalidad
+- [Análisis de la maldición de la dimensionalidad y cómo mitigarlo](#análisis-de-la-maldición-de-la-dimensionalidad-y-cómo-mitigarlo)
+
+## Frontend
+- [Diseño del índice con PostgreSQL](#diseño-del-índice-con-postgresql)
+- [Análisis comparativo con su propia implementación](#análisis-comparativo-con-su-propia-implementación)
+- [Screenshots de la GUI](#screenshots-de-la-gui)
+
+## Experimentación
+- [Resultados de la query](#resultados-de-la-query)
+- [Análisis y discusión](#análisis-y-discusión)
+
+<!-- Secciones -->
+## Descripción del dominio de datos
+[Contenido de la sección aquí]
+
+## Librerías utilizadas
+[Contenido de la sección aquí]
+
+## Técnica de indexación de las librerías utilizadas - Índice multimedia
+[Contenido de la sección aquí]
+
+## Como se realiza el KNN Search y el Range Search
+[Contenido de la sección aquí]
+
+## Construcción del índice invertido
+[Contenido de la sección aquí]
+
+## Manejo de memoria secundaria
+[Contenido de la sección aquí]
+
+## Ejecución óptima de consultas
+[Contenido de la sección aquí]
+
+## Análisis de la maldición de la dimensionalidad y cómo mitigarlo
+[Contenido de la sección aquí]
+
+## Diseño del índice con PostgreSQL
+[Contenido de la sección aquí]
+
+## Análisis comparativo con su propia implementación
+[Contenido de la sección aquí]
+
+## Screenshots de la GUI
+[Contenido de la sección aquí]
+
+## Resultados de la query
+[Contenido de la sección aquí]
+
+## Análisis y discusión
+[Contenido de la sección aquí]
+
+
+
+
+
+
 
 
 
