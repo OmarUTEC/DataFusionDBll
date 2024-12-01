@@ -57,7 +57,7 @@ Este proyecto es una aplicación web que permite realizar búsquedas avanzadas e
 
 ![Resultados de búsqueda](./screenshot/interfaz_1.png)
 
-##Interfaz del usuario principal para Busqueda de imágenes
+## Interfaz del usuario principal para Busqueda de imágenes
 ![Resultados de búsqueda](./screenshot/interfaz_2.png)
 
 
