@@ -48,19 +48,17 @@ Este proyecto es una aplicación web que permite realizar búsquedas avanzadas e
 │
 └── README.md                  # Documentación del proyecto
 ```
-<div style="border: 1px solid #e0e0e0; background-color: #f7f7f7; padding: 20px; border-radius: 10px;">
 
-  <h2 style="margin-top: 0; font-size: 18px;">Título del cuadro</h2>
-  
-  <p>Este es el contenido dentro del cuadro. Puedes agregar texto, listas, enlaces, imágenes, etc.</p>
-  
-  <ul>
-    <li>Elemento 1</li>
-    <li>Elemento 2</li>
-    <li>Elemento 3</li>
-  </ul>
-  
-</div>
+# Organización del equipo
+
+| Participante | Papel |
+|--------------|-------|
+| Aldair Seminario | Procesamiento del CSV-Creación de índice invertido, Manejo de índices, Implementación de SPIMI, Merge, cosine |
+|  Nicol| Frontend, Ponderación de pesos en postgresql, cosine |
+| OMAR | Binary search para buscar palabras, Generación de vectores característicos e índices para registros de longitud variable, KNN secuencial |
+
+
+
 
 
 
