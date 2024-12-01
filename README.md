@@ -92,7 +92,7 @@ Este archivo incluye detalles como el álbum al que pertenece cada canción, la 
 otros atributos relevantes que se utilizarán para trabajar en el proyecto. Es importante tener en 
 cuenta que el archivo contiene un total de 18,456 registros.
 
-![imágen del csv ](./screenshot/inver_index_c.png){: width="100px" }
+![imágen del csv](./screenshot/multimedia_C.png){: width="300px" }
 
 ### 1.2) Búsquedas por imágenes:
 
