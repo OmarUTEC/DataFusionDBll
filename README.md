@@ -97,47 +97,45 @@ entendible posible para facilitar el manejo de nuestro producto.
 
 
 ## 1) Descripción del dominio de datos y la importancia de aplicar indexación.
-### 1.1) Búsquedas Textuales
-
-### 1. Tipo de Datos
-
-El sistema almacena principalmente **datos textuales** en forma de registros de canciones. Esto incluye:
-- **Texto**: Letras de las canciones, nombres de las pistas y artistas.
-- **Metadatos**: Información adicional relacionada con cada canción, como el álbum al que pertenecen.
-
-#### 2. Estructura de los Datos
-Los datos están organizados en un archivo **CSV**, para almacenar datos tabulares. 
-Cada fila del archivo representa un registro de una canción, y las columnas contienen los diferentes atributos de cada registro. 
-Las columnas  que usaremos para la impleentación  son:
-
-- **Track ID**: Identificador único de la canción.
-- **Track Name**: Nombre de la canción.
-- **Track Artist**: Artista de la canción.
-- **Lyrics**: Letra de la canción.
-
-#### 3. Origen de los Datos
-
-Los datos provienen de **https://www.kaggle.com/datasets/imuhammad/audio-features-and-lyrics-of-spotify-songs/data**, específicamente de un dataset disponible públicamente que contiene información sobre canciones en Spotify.
-Este dataset ha sido recopilado y estructurado para facilitar su uso en el proyecto.
-
-#### 3. Relaciones entre Datos
-
-En este proyecto, las relaciones entre los datos son simples, ya que cada canción se identifica de manera única a través de su **Track ID**. 
-Sin embargo, los datos pueden relacionarse de la siguiente manera:
-
-- **Relación entre canciones y álbumes**: Cada canción puede estar asociada a un álbum específico.
-- **Relación entre artistas y canciones**: Un artista puede tener múltiples canciones en el dataset.
-
-#### 4. Uso de los Datos
-
-El propósito de los datos en este sistema incluye:
-
-- **Análisis**: Evaluar tendencias en la música y patrones de letras.
-- **Búsqueda**: Permitir a los usuarios buscar canciones por nombre, artista o contenido de la letra.
-- **Recuperación de Información**: Proporcionar resultados relevantes y precisos basados en las consultas de los usuarios.
-
-
-<img src="./screenshot/multimedia_C.png" width="800"/>
+  ### 1.1) Búsquedas Textuales
+  
+  ### 1. Tipo de Datos
+  
+  El sistema almacena principalmente **datos textuales** en forma de registros de canciones , los cuales contienen  **18,455**. Esto incluye:
+  - **Texto**: Letras de las canciones, nombres de las pistas y artistas.
+  - **Metadatos**: Información adicional relacionada con cada canción, como el álbum al que pertenecen.
+  
+  #### 2. Estructura de los Datos
+  Los datos están organizados en un archivo **CSV**, para almacenar datos tabulares. 
+  Cada fila del archivo representa un registro de una canción, y las columnas contienen los diferentes atributos de cada registro. 
+  Las columnas  que usaremos para la impleentación  son:
+  
+  - **Track ID**: Identificador único de la canción.
+  - **Track Name**: Nombre de la canción.
+  - **Track Artist**: Artista de la canción.
+  - **Lyrics**: Letra de la canción.
+  
+  #### 3. Origen de los Datos
+  
+  Los datos provienen de **https://www.kaggle.com/datasets/imuhammad/audio-features-and-lyrics-of-spotify-songs/data**, específicamente de un dataset disponible públicamente que contiene información sobre canciones en Spotify.
+  Este dataset ha sido recopilado y estructurado para facilitar su uso en el proyecto.
+  
+  #### 3. Relaciones entre Datos
+  
+  En este proyecto, las relaciones entre los datos son simples, ya que cada canción se identifica de manera única a través de su **Track ID**. 
+  Sin embargo, los datos pueden relacionarse de la siguiente manera:
+  
+  - **Relación entre canciones y álbumes**: Cada canción puede estar asociada a un álbum específico.
+  - **Relación entre artistas y canciones**: Un artista puede tener múltiples canciones en el dataset.
+  
+  #### 4. Uso de los Datos
+  
+  El propósito de los datos en este sistema incluye:
+  
+  - **Análisis**: Evaluar tendencias en la música y patrones de letras.
+  - **Búsqueda**: Permitir a los usuarios buscar canciones por nombre, artista o contenido de la letra.
+  - **Recuperación de Información**: Proporcionar resultados relevantes y precisos basados en las consultas de los usuarios.
+  
 
 
 ### 1.2) Búsquedas por imágenes:
