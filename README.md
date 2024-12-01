@@ -59,9 +59,8 @@ Este proyecto es una aplicación web que permite realizar búsquedas avanzadas e
 
 
 
-# Tabla de contenidos
-## Introducción
-- [Datos](#Datos)
+# Introducción
+- [Objetivo del proyecto](#Datos)
 - [Librerías utilizadas](#librerías-utilizadas)
 - [Técnicas de indexación (usando indice invertido)](#técnica-de-indexación-de-las-librerías-utilizadas---índice-multimedia)
 - [Ténica Multimedia (usando Knn)](#como-se-realiza-el-knn-search-y-el-range-search)
@@ -84,6 +83,18 @@ Este proyecto es una aplicación web que permite realizar búsquedas avanzadas e
 - [Análisis y discusión](#análisis-y-discusión)
 
 <!-- Secciones -->
+
+## 1)Objetivo del proyecto
+Este proyecto tiene como objetivo diseñar e implementar un sistema de búsqueda y recuperación de datos, ya sean datos multimedia o textuales. Se utilizan estructuras de datos vistas en el curso de Bases de Datos 2, tales como:
+
+- Índice invertido
+- Similitud del coseno
+- Búsqueda por rango
+
+Además, se busca que la experiencia del usuario en la interfaz gráfica sea lo más amigable y 
+entendible posible para facilitar el manejo de nuestro producto.
+
+
 ## 1) Datos
 
 ### 1.1) Búsquedas textuales:
