@@ -101,7 +101,8 @@ contenga tanto imágenes como descripciones, decidimos trabajar con un dataset s
 Este dataset contiene 44,000 fotos de productos comunes que se encuentran en una tienda.
 Estas imágenes serán utilizadas en el proyecto para realizar las búsquedas visuales.
 
-![imágen del csv ](./screenshot/multimedia_C.png){: width="100px" }
+<img src="./screenshot/multimedia_C.png" width="800"/>
+
 
 
 
