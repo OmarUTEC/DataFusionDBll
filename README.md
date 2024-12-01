@@ -237,7 +237,11 @@ A continuación se describen los principales aspectos de esta técnica:
 - **Eficiencia en la Búsqueda**: La estructura del índice invertido permite realizar búsquedas rápidas y efectivas, reduciendo el tiempo de respuesta al evitar búsquedas lineales en grandes conjuntos de datos.
 - **Optimización del Uso de Recursos**: Al cargar datos en chunks y almacenar características en memoria secundaria, se maximiza el uso de la memoria, lo que es crucial para el manejo de grandes volúmenes de información.
 
-[Contenido de la sección aquí]
+
+
+## Técnica de indexación  Indice Multidimencional
+
+
 
 ## Como se realiza el KNN Search y el Range Search
 [Contenido de la sección aquí]
