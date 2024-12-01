@@ -175,6 +175,27 @@ proporcionando resultados relevantes en función de las palabras clave ingresada
 experiencia general del usuario.
 
 
+# 4] Frontend 
+
+## 4.1] Frontend Diseño de la GUI
+Para optimizar la experiencia del usuario en nuestro producto, hemos puesto un enfoque especial en su comodidad y facilidad de uso. Por ello, hemos diseñado una 
+**interfaz amigable e intuitiva** que permite a los usuarios interactuar con el sistema sin complicaciones.
+### 4.1.1]  Diseño de la GUI Para busquedas textuales 
+
+![Interfaz de usuario](./screenshot/main.jpeg)
+
+![Resultados de búsqueda](./screenshot/interfaz_1.png)
+
+### 4.1.1]  Diseño de la GUI Para busquedas Por imágenes 
+
+![Resultados de búsqueda](./screenshot/interfaz_2.png)
+
+![Resultados de búsqueda](./screenshot/interfaz_2.png)
+
+
+
+
+
 
 
 ## Técnica de indexación de las librerías utilizadas - Índice  invertido
@@ -209,6 +230,15 @@ A continuación se describen los principales aspectos de esta técnica:
 
 - **Eficiencia en la Búsqueda**: La estructura del índice invertido permite realizar búsquedas rápidas y efectivas, reduciendo el tiempo de respuesta al evitar búsquedas lineales en grandes conjuntos de datos.
 - **Optimización del Uso de Recursos**: Al cargar datos en chunks y almacenar características en memoria secundaria, se maximiza el uso de la memoria, lo que es crucial para el manejo de grandes volúmenes de información.
+
+
+
+
+
+
+
+
+
 
 
 
