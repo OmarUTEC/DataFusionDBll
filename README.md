@@ -96,16 +96,16 @@ Además, se busca que la experiencia del usuario en la interfaz gráfica sea lo 
 entendible posible para facilitar el manejo de nuestro producto.
 
 
-## 1) Descripción del dominio de datos y la importancia de aplicar indexación.
-  ### 1.1) Búsquedas Textuales
+## 2) Descripción del dominio de datos y la importancia de aplicar indexación.
+  ### 2.1) Búsquedas Textuales
   
-  ### 1. Tipo de Datos
+  ####  2.1.1) Tipo de Datos
   
   El sistema almacena principalmente **datos textuales** en forma de registros de canciones , los cuales contienen  **18,455**. Esto incluye:
   - **Texto**: Letras de las canciones, nombres de las pistas y artistas.
   - **Metadatos**: Información adicional relacionada con cada canción, como el álbum al que pertenecen.
   
-  #### 2. Estructura de los Datos
+  #### 2.1.2)  Estructura de los Datos
   Los datos están organizados en un archivo **CSV**, para almacenar datos tabulares. 
   Cada fila del archivo representa un registro de una canción, y las columnas contienen los diferentes atributos de cada registro. 
   Las columnas  que usaremos para la impleentación  son:
@@ -115,27 +115,25 @@ entendible posible para facilitar el manejo de nuestro producto.
   - **Track Artist**: Artista de la canción.
   - **Lyrics**: Letra de la canción.
   
-  #### 3. Origen de los Datos
+  #### 2.1.3 Origen de los Datos
   
   Los datos provienen de **https://www.kaggle.com/datasets/imuhammad/audio-features-and-lyrics-of-spotify-songs/data**, específicamente de un dataset disponible públicamente que contiene información sobre canciones en Spotify.
   Este dataset ha sido recopilado y estructurado para facilitar su uso en el proyecto.
+    
+  En este proyecto, las relaciones entre los datos son simples, ya que cada canción se identifica de manera única a través de su **Track ID**.   
   
-  #### 3. Relaciones entre Datos
-  
-  En este proyecto, las relaciones entre los datos son simples, ya que cada canción se identifica de manera única a través de su **Track ID**. 
-  Sin embargo, los datos pueden relacionarse de la siguiente manera:
-  
-  - **Relación entre canciones y álbumes**: Cada canción puede estar asociada a un álbum específico.
-  - **Relación entre artistas y canciones**: Un artista puede tener múltiples canciones en el dataset.
-  
-  #### 4. Uso de los Datos
-  
-  El propósito de los datos en este sistema incluye:
-  
-  - **Análisis**: Evaluar tendencias en la música y patrones de letras.
-  - **Búsqueda**: Permitir a los usuarios buscar canciones por nombre, artista o contenido de la letra.
-  - **Recuperación de Información**: Proporcionar resultados relevantes y precisos basados en las consultas de los usuarios.
-  
+El propósito de los datos en este sistema incluye:
+
+- **Análisis Estadístico**: Realizar análisis para calcular la similitud del coseno, el TF-IDF  y
+
+aplicar técnicas de normalización para mejorar la precisión en la recuperación de información.
+
+- **Búsqueda**: Utilizar los datos como fuente para permitir a los usuarios realizar búsquedas efectivas en nuestro simulador,
+ facilitando la localización de canciones y letras de manera  más rápida.
+
+- **Experiencia de Usuario**: Desarrollar un sistema basado en el contenido de los datos que permita a los usuarios realizar búsquedas de canciones en función de sus consultas,
+asegurando que los resultados sean lo más cercanos posible a lo que realmente buscan.
+
 
 
 ### 1.2) Búsquedas por imágenes:
@@ -145,7 +143,6 @@ contenga tanto imágenes como descripciones, decidimos trabajar con un dataset s
 Este dataset contiene 44,000 fotos de productos comunes que se encuentran en una tienda.
 Estas imágenes serán utilizadas en el proyecto para realizar las búsquedas visuales.
 
-![imágen del csv ](./screenshot/multimedia_C.png){: width="100px" }
 
 
 [Contenido de la sección aquí]
