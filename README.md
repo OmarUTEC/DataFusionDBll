@@ -85,7 +85,8 @@ Este proyecto es una aplicación web que permite realizar búsquedas avanzadas e
 <!-- Secciones -->
 
 ## 1)Objetivo del proyecto
-Este proyecto tiene como objetivo diseñar e implementar un sistema de búsqueda y recuperación de datos, ya sean datos multimedia o textuales. Se utilizan estructuras de datos vistas en el curso de Bases de Datos 2, tales como:
+Este proyecto tiene como objetivo diseñar e implementar un sistema de búsqueda y recuperación de datos, ya sean datos multimedia o textuales. 
+Se utilizan estructuras de datos vistas en el curso de Bases de Datos 2, tales como:
 
 - Índice invertido
 - Similitud del coseno
@@ -95,15 +96,49 @@ Además, se busca que la experiencia del usuario en la interfaz gráfica sea lo 
 entendible posible para facilitar el manejo de nuestro producto.
 
 
-## 1) Datos
+## 1) Descripción del dominio de datos y la importancia de aplicar indexación.
+### 1.1) Búsquedas Textuales
 
-### 1.1) Búsquedas textuales:
-El dataset Spotify Songs es un archivo CSV que contiene información sobre diversas canciones.
-Este archivo incluye detalles como el álbum al que pertenece cada canción, la letra, y 
-otros atributos relevantes que se utilizarán para trabajar en el proyecto. Es importante tener en 
-cuenta que el archivo contiene un total de 18,456 registros.
+### 1. Tipo de Datos
+
+El sistema almacena principalmente **datos textuales** en forma de registros de canciones. Esto incluye:
+- **Texto**: Letras de las canciones, nombres de las pistas y artistas.
+- **Metadatos**: Información adicional relacionada con cada canción, como el álbum al que pertenecen.
+
+#### 2. Estructura de los Datos
+Los datos están organizados en un archivo **CSV**, para almacenar datos tabulares. 
+Cada fila del archivo representa un registro de una canción, y las columnas contienen los diferentes atributos de cada registro. 
+Las columnas  que usaremos para la impleentación  son:
+
+- **Track ID**: Identificador único de la canción.
+- **Track Name**: Nombre de la canción.
+- **Track Artist**: Artista de la canción.
+- **Lyrics**: Letra de la canción.
+
+#### 3. Origen de los Datos
+
+Los datos provienen de **https://www.kaggle.com/datasets/imuhammad/audio-features-and-lyrics-of-spotify-songs/data**, específicamente de un dataset disponible públicamente que contiene información sobre canciones en Spotify.
+Este dataset ha sido recopilado y estructurado para facilitar su uso en el proyecto.
+
+#### 3. Relaciones entre Datos
+
+En este proyecto, las relaciones entre los datos son simples, ya que cada canción se identifica de manera única a través de su **Track ID**. 
+Sin embargo, los datos pueden relacionarse de la siguiente manera:
+
+- **Relación entre canciones y álbumes**: Cada canción puede estar asociada a un álbum específico.
+- **Relación entre artistas y canciones**: Un artista puede tener múltiples canciones en el dataset.
+
+#### 4. Uso de los Datos
+
+El propósito de los datos en este sistema incluye:
+
+- **Análisis**: Evaluar tendencias en la música y patrones de letras.
+- **Búsqueda**: Permitir a los usuarios buscar canciones por nombre, artista o contenido de la letra.
+- **Recuperación de Información**: Proporcionar resultados relevantes y precisos basados en las consultas de los usuarios.
+
 
 <img src="./screenshot/multimedia_C.png" width="800"/>
+
 
 ### 1.2) Búsquedas por imágenes:
 
@@ -114,104 +149,6 @@ Estas imágenes serán utilizadas en el proyecto para realizar las búsquedas vi
 
 ![imágen del csv ](./screenshot/multimedia_C.png){: width="100px" }
 
-
-
-
-## Librerías utilizadas
-### Para el indice invertido 
-```python
-import os
-import io
-import json
-import math
-import pandas as pd
-import nltk
-from nltk.stem import SnowballStemmer
-from collections import defaultdict
-from typing import Dict
-```
-
-### Para el indice Multidimencional :
-
-```python
-import struct
-import numpy as np
-import heapq
-import pandas as pd
-from tensorflow.keras.applications import InceptionV3
-from tensorflow.keras.utils import load_img, img_to_array
-from tensorflow.keras.applications.inception_v3 import preprocess_input
-import json
-import os
-import requests
-from io import BytesIO
-import gc
-from tempfile import NamedTemporaryFile
-```
-
-#### 1. `json`
-- **Propósito**: Permite leer y escribir datos en formato JSON
-- **Uso**: Se utiliza para cargar datos desde archivos JSON y guardar resultados procesados en dicho formato.
-  
-  ```python
-  with open(ruta_indice_parcial, 'w', encoding='utf-8') as archivo:
-    json.dump(self.indice_invertido, archivo)
-
-  # para cargar un json 
-  with open(self.ruta_pesos, 'r', encoding='utf-8') as archivo:
-    self.pesos_campos = json.load(archivo)
-  ```
-#### 2. `nltk`
-- **Propósito**: Proporciona  librerias para el procesamiento y análisis de texto en lenguaje natural.
-- **Uso**: Lo utilizamos para tareas como la tokenización, stemming, y análisis de texto.
-```python
-import nltk
-from nltk.stem import SnowballStemmer
-nltk.download('punkt')  # Descargar recursos de tokenización
-stemmer = SnowballStemmer('spanish')
-```
-
-#### 3. `os`
-- **Propósito**: permite  manejar rutas de archivos y directorios.
-- **Uso**: Se utiliza para gestionar rutas de acceso a archivos json , crear directorios, verificar la existencia de los mismos.
-```python
-ruta_completa = os.path.join(self.ruta_indice, "archivo.json")
-
-```
-
-
-#### 3. `NumPy `
-- **Propósito**: biblioteca fundamental para el cálculo numérico en Python,nos permite realizar operaciones matemáticas
-- **Uso**:  Se utiliza para varias operaciones matemáticas como  :  la distancia euclidiana entre vectores y operaciones entre arrays.
-```python
-def euclidean_distance(self, x, y):
-    return np.sqrt(np.sum((x - y) ** 2))
-
-with open(self.binary_file, 'rb') as f:
-    f.seek(position)
-    data = f.read(4 + 4 * self.vector_size)
-    if len(data) < 4 + 4 * self.vector_size:
-        return None
-    vector = np.array(struct.unpack(f'{self.vector_size}f', data[4:]))
-```
-#### 4. `Pandas`
-- **Propósito**: Pandas es una biblioteca clave en Python que nos ayudara a trabajar con datos de manera sencilla, en este caso ns ayudara a manejar el csv .
-- **Uso**: Se utilizo pandas  para cargar y leer los archivos csv.
-```python
-#  Cargar los datos
-self.url_map = pd.read_csv(url_csv_file)
-```
-#### 5. ` TensorFlow Keras`
-- **Propósito**:  TensorFlow Keras es una biblioteca poderosa que facilita la creación y entrenamiento de modelos de aprendizaje profundo. En este caso,
-se utiliza para trabajar con un modelo preentrenado, específicamente InceptionV3, que ayuda a extraer características de imágenes.
-- **Uso**:  Se utiliza para cargar un modelo preentrenado y procesar imágenes.
-```python
-#  Cargar el modelo
-modelo_inception = InceptionV3(weights='imagenet', include_top=False, pooling='avg')
-# Procesar Imágenes
-img_array = preprocess_input(img_array)
-vector = modelo_inception.predict(img_array).flatten()
-```
 
 [Contenido de la sección aquí]
 
