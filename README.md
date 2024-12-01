@@ -105,7 +105,7 @@ Estas imágenes serán utilizadas en el proyecto para realizar las búsquedas vi
 
 
 ## Librerías utilizadas
-### Para la creación del indice invertido  y la busqueda rextual se utilizaron las siguientes librerias : 
+### Para la creación del indice invertido  y la busqueda textual se utilizaron las siguientes librerias : 
 ```python
 import os
 import io
