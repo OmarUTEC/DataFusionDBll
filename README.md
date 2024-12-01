@@ -104,13 +104,32 @@ Estas imágenes serán utilizadas en el proyecto para realizar las búsquedas vi
 <img src="./screenshot/multimedia_C.png" width="800"/>
 
 
-
-
-
 ## Librerías utilizadas
-### Para la creación del indice se utilizaron las siguientes librerias : 
+### Para la creación del indice invertido  y la busqueda rextual se utilizaron las siguientes librerias : 
+```python
+import os
+import io
+import json
+import math
+import pandas as pd
+import nltk
+from nltk.stem import SnowballStemmer
+from collections import defaultdict
+from typing import Dict
+```
 
-
+### Para la creación del indice multidmensional  y la busqueda de imágenes se utilizaron las siguientes librerias : 
+```python
+import requests
+from io import BytesIO
+from tensorflow.keras.applications import InceptionV3
+from tensorflow.keras.preprocessing import image
+from tensorflow.keras.applications.inception_v3 import preprocess_input
+import numpy as np
+import pandas as pd
+import struct
+import gc  
+```
 [Contenido de la sección aquí]
 
 ## Técnica de indexación de las librerías utilizadas - Índice multimedia
