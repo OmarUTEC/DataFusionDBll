@@ -165,9 +165,14 @@ facilitando la localización de productos de manera intuitiva y eficiente.
 - **Experiencia de Usuario**: Desarrollar un sistema que permita a los usuarios buscar productos mediante la carga de imágenes, asegurando que los resultados
 sean lo más cercanos posible a lo que realmente buscan, mejorando así la interacción con la plataforma.
 
+### 2.3]  importancia de aplicar indexación:
 
+La **indexación** es crucial para mejorar la eficiencia de las búsquedas. Al indexar las imágenes, podemos reducir significativamente el tiempo de respuesta al permitir que el sistema localice rápidamente 
+los productos relevantes en función de las consultas visuales. Esto optimiza la experiencia del usuario, asegurando resultados más rápidos y precisos.
 
-
+Además, la indexación también es fundamental para las búsquedas textuales. Al indexar descripciones y atributos de los productos, el sistema puede procesar consultas de texto de manera más eficiente, 
+proporcionando resultados relevantes en función de las palabras clave ingresadas por el usuario. Esto permite una búsqueda más completa y efectiva, combinando tanto la búsqueda visual como la textual para mejorar la
+experiencia general del usuario.
 
 
 
