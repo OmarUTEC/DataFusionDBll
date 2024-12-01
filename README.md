@@ -65,8 +65,8 @@ Este proyecto es una aplicación web que permite realizar búsquedas avanzadas e
 
 ![Resultados de búsqueda](./screenshot/R1.png)
 
-
-
+## IMPLEMENTACIÓN DEL INDICE INVERTIDO PARA LA BUSQUEDA TEXTUAL 
+Clase
 ## Resultados de búsqueda index postgresql
 
 ![Resultados de búsqueda](./screenshot/postgresql.jpeg)
