@@ -176,7 +176,6 @@ experiencia general del usuario.
 
 
 
-[Contenido de la sección aquí]
 
 ## Técnica de indexación de las librerías utilizadas - Índice  invertido
 
