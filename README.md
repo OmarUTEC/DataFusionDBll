@@ -92,7 +92,7 @@ Este archivo incluye detalles como el álbum al que pertenece cada canción, la 
 otros atributos relevantes que se utilizarán para trabajar en el proyecto. Es importante tener en 
 cuenta que el archivo contiene un total de 18,456 registros.
 
-<img src="./screenshot/multimedia_C.png" width="500"/>
+<img src="./screenshot/multimedia_C.png" width="800"/>
 
 ### 1.2) Búsquedas por imágenes:
 
