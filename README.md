@@ -61,18 +61,18 @@ Este proyecto es una aplicación web que permite realizar búsquedas avanzadas e
 
 # Tabla de contenidos
 ## Introducción
-- [Descripción del dominio de datos2](#descripción-del-dominio-de-datos)
+- [Datos](#descripción-del-dominio-de-datos)
 - [Librerías utilizadas](#librerías-utilizadas)
-- [Técnica de indexación de las librerías utilizadas - Índice multimedia](#técnica-de-indexación-de-las-librerías-utilizadas---índice-multimedia)
-- [Como se realiza el KNN Search y el Range Search](#como-se-realiza-el-knn-search-y-el-range-search)
+- [Técnicas de indexación (usando indice invertido)](#técnica-de-indexación-de-las-librerías-utilizadas---índice-multimedia)
+- [Ténica Multimedia (usando Knn)](#como-se-realiza-el-knn-search-y-el-range-search)
 
 ## Backend
 - [Construcción del índice invertido](#construcción-del-índice-invertido)
-- [Manejo de memoria secundaria](#manejo-de-memoria-secundaria)
-- [Ejecución óptima de consultas](#ejecución-óptima-de-consultas)
+- [Construcción del indice Multimedia](#manejo-de-memoria-secundaria)
+- [Manejo de memoria secundaria](#ejecución-óptima-de-consultas)
 
-## Maldición de la dimensionalidad
-- [Análisis de la maldición de la dimensionalidad y cómo mitigarlo](#análisis-de-la-maldición-de-la-dimensionalidad-y-cómo-mitigarlo)
+## Análisis de Tamaño de Buffert
+- [Análisis sobre los Bufferts ](#análisis-de-la-maldición-de-la-dimensionalidad-y-cómo-mitigarlo)
 
 ## Frontend
 - [Diseño del índice con PostgreSQL](#diseño-del-índice-con-postgresql)
