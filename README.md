@@ -190,7 +190,7 @@ Para optimizar la experiencia del usuario en nuestro producto, hemos puesto un e
 
 ![Resultados de búsqueda](./screenshot/interfaz_2.png)
 
-![Resultados de búsqueda](./screenshot/interfaz_2.png)
+![Resultados de búsqueda](./screenshot/R1.png)
 
 
 
