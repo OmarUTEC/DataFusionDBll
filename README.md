@@ -202,8 +202,13 @@ Para optimizar la experiencia del usuario en nuestro producto, hemos puesto un e
 
 
 
+## 4.3] Análisis comparativo visual con otras implementaciones
+En este caso un servició similar a la  busqueda de texto es 
+GroupDocs el cual  en uno de sus servicios poder hacer busquedas textuales , claro que esta plataforma
+brinda otros servicios que estan mas incliandos al lado del mundo comercial , su interfaz gráfica se muestra a continuación
 
 
+https://products.groupdocs.app/search/total
 
 
 
