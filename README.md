@@ -180,6 +180,11 @@ experiencia general del usuario.
 
   ###  3.1] Construcción del índice invertido en memoria secundaria
 
+  #### 1] Primero se calcula los pesos de cada una de las columnas
+
+
+   ![Interfaz de usuario](./screenshot/paso1.png)
+   ![Interfaz de usuario](./screenshot/D1.png)
 
   
   ###  3.2] Ejecución óptima de consultas aplicando Similitud de Coseno
