@@ -57,6 +57,16 @@ Este proyecto es una aplicación web que permite realizar búsquedas avanzadas e
 
 ![Resultados de búsqueda](./screenshot/interfaz_1.png)
 
+##Interfaz del usuario principal para Busqueda de imágenes
+![Resultados de búsqueda](./screenshot/interfaz_2.png)
+
+
+## Resultados de búsqueda  de imágenes 
+
+![Resultados de búsqueda](./screenshot/R1.png)
+
+
+
 ## Resultados de búsqueda index postgresql
 
 ![Resultados de búsqueda](./screenshot/postgresql.jpeg)
