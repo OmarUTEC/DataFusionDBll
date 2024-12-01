@@ -169,6 +169,38 @@ ruta_completa = os.path.join(self.ruta_indice, "archivo.json")
 ```
 
 
+#### 3. `NumPy `
+- **Propósito**: biblioteca fundamental para el cálculo numérico en Python,nos permite realizar operaciones matemáticas
+- **Uso**:  Se utiliza para varias operaciones matemáticas como  :  la distancia euclidiana entre vectores y operaciones entre arrays.
+```python
+def euclidean_distance(self, x, y):
+    return np.sqrt(np.sum((x - y) ** 2))
+
+with open(self.binary_file, 'rb') as f:
+    f.seek(position)
+    data = f.read(4 + 4 * self.vector_size)
+    if len(data) < 4 + 4 * self.vector_size:
+        return None
+    vector = np.array(struct.unpack(f'{self.vector_size}f', data[4:]))
+```
+#### 4. `Pandas`
+- **Propósito**: Pandas es una biblioteca clave en Python que nos ayudara a trabajar con datos de manera sencilla, en este caso ns ayudara a manejar el csv .
+- **Uso**: Se utilizo pandas  para cargar y leer los archivos csv.
+```python
+#  Cargar los datos
+self.url_map = pd.read_csv(url_csv_file)
+```
+#### 5. ` TensorFlow Keras`
+- **Propósito**:  TensorFlow Keras es una biblioteca poderosa que facilita la creación y entrenamiento de modelos de aprendizaje profundo. En este caso,
+se utiliza para trabajar con un modelo preentrenado, específicamente InceptionV3, que ayuda a extraer características de imágenes.
+- **Uso**:  Se utiliza para cargar un modelo preentrenado y procesar imágenes.
+```python
+#  Cargar el modelo
+modelo_inception = InceptionV3(weights='imagenet', include_top=False, pooling='avg')
+# Procesar Imágenes
+img_array = preprocess_input(img_array)
+vector = modelo_inception.predict(img_array).flatten()
+```
 
 [Contenido de la sección aquí]
 
