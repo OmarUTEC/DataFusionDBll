@@ -48,6 +48,22 @@ Este proyecto es una aplicación web que permite realizar búsquedas avanzadas e
 │
 └── README.md                  # Documentación del proyecto
 ```
+<div style="border: 1px solid #e0e0e0; background-color: #f7f7f7; padding: 20px; border-radius: 10px;">
+
+  <h2 style="margin-top: 0; font-size: 18px;">Título del cuadro</h2>
+  
+  <p>Este es el contenido dentro del cuadro. Puedes agregar texto, listas, enlaces, imágenes, etc.</p>
+  
+  <ul>
+    <li>Elemento 1</li>
+    <li>Elemento 2</li>
+    <li>Elemento 3</li>
+  </ul>
+  
+</div>
+
+
+
 
 ## Interfaz del usuario principal
 
