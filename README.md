@@ -137,8 +137,20 @@ from io import BytesIO
 import gc
 from tempfile import NamedTemporaryFile
 ```
-• Para trabajar con datos en formato JSON. Permite cargar (json.load) y guardar (json.dump) datos en formato JSON  : 
 
+#### 1. `json`
+- **Propósito**: Permite leer y escribir datos en formato JSON
+- **Uso**: Se utiliza para cargar datos desde archivos JSON y guardar resultados procesados en dicho formato.
+  
+  ```python
+  with open(ruta_indice_parcial, 'w', encoding='utf-8') as archivo:
+    json.dump(self.indice_invertido, archivo)
+
+  # para cargar un json 
+  with open(self.ruta_pesos, 'r', encoding='utf-8') as archivo:
+    self.pesos_campos = json.load(archivo)
+  ```
+  
 ```python
 # Cargar pesos de campos:
 with open(self.ruta_pesos, 'r', encoding='utf-8') as archivo:
