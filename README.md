@@ -150,17 +150,24 @@ from tempfile import NamedTemporaryFile
   with open(self.ruta_pesos, 'r', encoding='utf-8') as archivo:
     self.pesos_campos = json.load(archivo)
   ```
-  
+#### 2. `nltk`
+- **Propósito**: Proporciona  librerias para el procesamiento y análisis de texto en lenguaje natural.
+- **Uso**: Lo utilizamos para tareas como la tokenización, stemming, y análisis de texto.
 ```python
-# Cargar pesos de campos:
-with open(self.ruta_pesos, 'r', encoding='utf-8') as archivo:
-    self.pesos_campos = json.load(archivo)
-# Guardar Archivos JSON :
+import nltk
+from nltk.stem import SnowballStemmer
+nltk.download('punkt')  # Descargar recursos de tokenización
+stemmer = SnowballStemmer('spanish')
+```
 
-with open(ruta_indice_parcial, 'w', encoding='utf-8') as archivo:
-    json.dump(self.indice_invertido, archivo)
+#### 3. `os`
+- **Propósito**: permite  manejar rutas de archivos y directorios.
+- **Uso**: Se utiliza para gestionar rutas de acceso a archivos json , crear directorios, verificar la existencia de los mismos.
+```python
+ruta_completa = os.path.join(self.ruta_indice, "archivo.json")
 
 ```
+
 
 
 [Contenido de la sección aquí]
