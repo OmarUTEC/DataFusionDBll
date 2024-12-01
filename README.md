@@ -203,15 +203,14 @@ Para optimizar la experiencia del usuario en nuestro producto, hemos puesto un e
 
 
 ## 4.3] Análisis comparativo visual con otras implementaciones
-En este caso un servició similar a la  busqueda de texto es 
-GroupDocs el cual  en uno de sus servicios poder hacer busquedas textuales , claro que esta plataforma
-brinda otros servicios que estan mas incliandos al lado del mundo comercial , su interfaz gráfica se muestra a continuación
-
-
-https://products.groupdocs.app/search/total
+En nuestra investigación, encontramos un software llamado DocFetcher(https://docfetcher.sourceforge.io/es/screenshots.html), que hace algo similar a lo que estamos buscando: recuperar información y realizar búsquedas de texto. Este programa permite indexar carpetas o archivos, 
+lo que facilita encontrar palabras clave y muestra en qué archivos aparecen. Sin embargo, su interfaz, aunque es bastante comprensible, se siente un poco apagada y anticuada, lo que puede dar la impresión de que es una aplicación vieja. 
+Además, el botón para crear un índice no se ve claramente, lo que puede complicar su uso sin tener que ver videos explicativos. Los resultados de búsqueda tampoco son muy atractivos. En comparación, nuestro diseño es más llamativo y presenta la información de
+manera más agradable y ordenada, lo que mejora la experiencia del usuario y hace que sea más fácil entender los datos. 
 
 
 
+![Resultados de búsqueda](./screenshot/Doc_I.png)
 
 
 
