@@ -101,13 +101,16 @@ contenga tanto imágenes como descripciones, decidimos trabajar con un dataset s
 Este dataset contiene 44,000 fotos de productos comunes que se encuentran en una tienda.
 Estas imágenes serán utilizadas en el proyecto para realizar las búsquedas visuales.
 
-<img src="./screenshot/multimedia_C.png" width="800"/>
+![imágen del csv ](./screenshot/multimedia_C.png){: width="100px" }
+
+
 
 
 ## Librerías utilizadas
-### Para la creación del indice invertido  y la busqueda textual se utilizaron las siguientes librerias : 
+### Para el indice invertido 
 ```python
 import os
+import io
 import json
 import math
 import pandas as pd
@@ -117,18 +120,37 @@ from collections import defaultdict
 from typing import Dict
 ```
 
-### Para la creación del indice multidmensional  y la busqueda de imágenes se utilizaron las siguientes librerias : 
+### Para el indice Multidimencional :
+
 ```python
+import struct
+import numpy as np
+import heapq
+import pandas as pd
+from tensorflow.keras.applications import InceptionV3
+from tensorflow.keras.utils import load_img, img_to_array
+from tensorflow.keras.applications.inception_v3 import preprocess_input
+import json
+import os
 import requests
 from io import BytesIO
-from tensorflow.keras.applications import InceptionV3
-from tensorflow.keras.preprocessing import image
-from tensorflow.keras.applications.inception_v3 import preprocess_input
-import numpy as np
-import pandas as pd
-import struct
-import gc  
+import gc
+from tempfile import NamedTemporaryFile
 ```
+• Para trabajar con datos en formato JSON. Permite cargar (json.load) y guardar (json.dump) datos en formato JSON  : 
+
+```python
+# Cargar pesos de campos:
+with open(self.ruta_pesos, 'r', encoding='utf-8') as archivo:
+    self.pesos_campos = json.load(archivo)
+# Guardar Archivos JSON :
+
+with open(ruta_indice_parcial, 'w', encoding='utf-8') as archivo:
+    json.dump(self.indice_invertido, archivo)
+
+```
+
+
 [Contenido de la sección aquí]
 
 ## Técnica de indexación de las librerías utilizadas - Índice multimedia
