@@ -144,7 +144,7 @@ Este dataset contiene 44,000 fotos de productos comunes que se encuentran en una
 Estas imágenes serán utilizadas en el proyecto para realizar las búsquedas visuales.
 
 
-### 2.2.1) Estructura de los Datos
+#### 2.2.1) Estructura de los Datos
 
 En este proyecto, estamos utilizando únicamente dos elementos del dataset:
 
@@ -153,7 +153,7 @@ En este proyecto, estamos utilizando únicamente dos elementos del dataset:
 
 Los datos que estamos utilizando se pueden encontrar en el siguiente enlace: [Fashion Product Images Dataset](https://www.kaggle.com/datasets/paramaggarwal/fashion-product-images-dataset/data).
 
-###  2.2.2) Propósito de los Datos
+####  2.2.2) Propósito de los Datos
 
 El propósito de los datos en este sistema incluye:
 
