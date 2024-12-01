@@ -180,17 +180,23 @@ experiencia general del usuario.
 ## 4.1] Frontend Diseño de la GUI
 Para optimizar la experiencia del usuario en nuestro producto, hemos puesto un enfoque especial en su comodidad y facilidad de uso. Por ello, hemos diseñado una 
 **interfaz amigable e intuitiva** que permite a los usuarios interactuar con el sistema sin complicaciones.
-### 4.1.1]  Diseño de la GUI Para busquedas textuales 
+### 4.1.1]  Diseño de la GUI para busquedas textuales 
 
 ![Interfaz de usuario](./screenshot/main.jpeg)
 
 ![Resultados de búsqueda](./screenshot/interfaz_1.png)
 
-### 4.1.1]  Diseño de la GUI Para busquedas Por imágenes 
+### 4.1.1]  Diseño de la GUI para busquedas por imágenes 
 
 ![Resultados de búsqueda](./screenshot/interfaz_2.png)
 
 ![Resultados de búsqueda](./screenshot/R1.png)
+
+## 4.2] Manual de instrucciones  : 
+### 4.2.1]  Manual para la busqueda textual  
+
+
+### 4.3.1]  Manual para la busqueda por imágenes
 
 
 
