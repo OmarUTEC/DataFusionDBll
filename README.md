@@ -54,7 +54,7 @@ Este proyecto es una aplicación web que permite realizar búsquedas avanzadas e
 | Participante      | Papel |
 |-------------------|-------|
 | Aldair Seminario | Creación de índice invertido, Implementación de SPIMI para busqueda textual y diseño de frontend|
-| Nicol            | Adaptación del frontend con el backend y implementación de busqueda por imágenes                |
+| Nicol Campoverde | Adaptación del frontend con el backend y implementación de busqueda por imágenes                |
 | OMAR             | Procesamiento de archivos csv y además  del desarrollo de la base de datos en postgres          |
 
 
