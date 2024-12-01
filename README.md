@@ -85,13 +85,14 @@ Este proyecto es una aplicación web que permite realizar búsquedas avanzadas e
 
 <!-- Secciones -->
 ## 1) Datos
-1.1) Búsquedas textuales:
+
+### 1.1) Búsquedas textuales:
 El dataset Spotify Songs es un archivo CSV que contiene información sobre diversas canciones.
 Este archivo incluye detalles como el álbum al que pertenece cada canción, la letra, y 
 otros atributos relevantes que se utilizarán para trabajar en el proyecto. Es importante tener en 
 cuenta que el archivo contiene un total de 18,456 registros.
 
-1.2) Búsquedas por imágenes:
+### 1.2) Búsquedas por imágenes:
 
 En cuanto a las búsquedas por imágenes, debido a la falta de un dataset completo que 
 contenga tanto imágenes como descripciones, decidimos trabajar con un dataset separado.
