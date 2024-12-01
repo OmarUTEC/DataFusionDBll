@@ -175,6 +175,21 @@ proporcionando resultados relevantes en función de las palabras clave ingresada
 experiencia general del usuario.
 
 
+
+## 3] Backend: Índice Invertido
+
+  ###  3.1] Construcción del índice invertido en memoria secundaria
+
+
+  
+  ###  3.2] Ejecución óptima de consultas aplicando Similitud de Coseno
+  
+  ###  3.3] Explique cómo se construye el índice invertido en
+  PostgreSQL/MongoDB
+
+
+
+
 # 4] Frontend 
 
 ## 4.1] Frontend Diseño de la GUI
