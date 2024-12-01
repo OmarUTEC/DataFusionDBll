@@ -91,7 +91,8 @@ El dataset Spotify Songs es un archivo CSV que contiene información sobre diver
 Este archivo incluye detalles como el álbum al que pertenece cada canción, la letra, y 
 otros atributos relevantes que se utilizarán para trabajar en el proyecto. Es importante tener en 
 cuenta que el archivo contiene un total de 18,456 registros.
-![imágen del csv ](./screenshot/inver_index_c.png)
+
+![imágen del csv ](./screenshot/inver_index_c.png){: width="100px" }
 
 ### 1.2) Búsquedas por imágenes:
 
@@ -99,7 +100,8 @@ En cuanto a las búsquedas por imágenes, debido a la falta de un dataset comple
 contenga tanto imágenes como descripciones, decidimos trabajar con un dataset separado.
 Este dataset contiene 44,000 fotos de productos comunes que se encuentran en una tienda.
 Estas imágenes serán utilizadas en el proyecto para realizar las búsquedas visuales.
-![imágen del csv ](./screenshot/multimedia_C.png)
+
+![imágen del csv ](./screenshot/multimedia_C.png){: width="100px" }
 
 
 
