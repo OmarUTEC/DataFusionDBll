@@ -61,7 +61,7 @@ Este proyecto es una aplicación web que permite realizar búsquedas avanzadas e
 
 # Tabla de contenidos
 ## Introducción
-- [Descripción del dominio de datos](#descripción-del-dominio-de-datos)
+- [Descripción del dominio de datos2](#descripción-del-dominio-de-datos)
 - [Librerías utilizadas](#librerías-utilizadas)
 - [Técnica de indexación de las librerías utilizadas - Índice multimedia](#técnica-de-indexación-de-las-librerías-utilizadas---índice-multimedia)
 - [Como se realiza el KNN Search y el Range Search](#como-se-realiza-el-knn-search-y-el-range-search)
