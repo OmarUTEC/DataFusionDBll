@@ -2,141 +2,98 @@ import struct
 import numpy as np
 import heapq
 import pandas as pd
-from tensorflow.keras.applications import InceptionV3
-from tensorflow.keras.utils import load_img, img_to_array
-from tensorflow.keras.applications.inception_v3 import preprocess_input
 import json
 import os
+import pickle
 
-VECTOR_SIZE = 2048
-BINARY_FILE = 'output.bin'
-POSITION_DATA_FILE = 'position_data.bin'
-URL_CSV_FILE = r'C:\Users\semin\OneDrive\Escritorio\bd2_code\Clonación1\Proyecto_2_BD2\app\Multidimencional\images1.csv'
+class KNNSecuencial:
+    def __init__(self):
+        # Archivos del sistema
+        self.binary_file = "output.bin"
+        self.position_data_file = "position_data.bin"
+        self.id_to_pos_file = "id_to_pos.bin"
+        self.csv_file = "images1.csv"
+        self.vector_size = 4000
+        
+        # Cargar datos necesarios
+        with open(self.id_to_pos_file, 'rb') as f:
+            self.id_to_pos = pickle.load(f)
+        self.df_images = pd.read_csv(self.csv_file)
 
-# Cargar el modelo preentrenado InceptionV3
-modelo_inception = InceptionV3(weights='imagenet', include_top=False, pooling='avg')
-
-class knnsecuencial:
-    def __init__(self, vector_size=VECTOR_SIZE, binary_file=BINARY_FILE, position_data_file=POSITION_DATA_FILE, url_csv_file=URL_CSV_FILE):
-        self.vector_size = vector_size
-        self.binary_file = binary_file
-        self.position_data_file = position_data_file
-        self.url_map = pd.read_csv(url_csv_file)
-        self.positions = self.load_positions()
-
-    def load_positions(self):
-        positions = []
-        with open(self.position_data_file, 'rb') as f:
-            while True:
-                data = f.read(4)
-                if not data:
-                    break
-                position = struct.unpack('i', data)[0]
-                positions.append(position)
-        return positions
-
-    def euclidean_distance(self, x, y):
-        return np.sqrt(np.sum((x - y) ** 2))
-
-    def get_vector(self, index):
-        position = self.positions[index]
+    def get_vector(self, id):
+        """Obtiene vector de características desde archivo binario"""
+        if id not in self.id_to_pos:
+            return None
+        position = self.id_to_pos[id]
         with open(self.binary_file, 'rb') as f:
             f.seek(position)
-            data = f.read(4 + 4 * self.vector_size)
-            if len(data) < 4 + 4 * self.vector_size:
-                return None
-            vector = np.array(struct.unpack(f'{self.vector_size}f', data[4:]))
+            data = f.read(4 + self.vector_size * 4)
+            vector = np.array(struct.unpack('i' + 'f' * self.vector_size, data)[1:])
         return vector
 
-    def process_batches(self, query, process_function):
-        for index in range(len(self.positions)):
-            vector = self.get_vector(index)
-            if vector is not None:
-                process_function(index, vector, query)
+    def euclidean_distance(self, x, y):
+        """Calcula distancia euclidiana entre vectores"""
+        return np.sqrt(np.sum((x - y) ** 2))
 
-    def knn_search_linear(self, query, k):
+    def knn_search(self, query_id, k=8):
+        """Búsqueda de k vecinos más cercanos"""
+        query_vector = self.get_vector(query_id)
+        if query_vector is None:
+            return []
+            
         heap = []
-        unique_neighbors = set()
+        processed = set()
+        
+        for id in self.id_to_pos.keys():
+            vector = self.get_vector(id)
+            if vector is not None:
+                distance = self.euclidean_distance(query_vector, vector)
+                if id not in processed:
+                    heapq.heappush(heap, (-distance, id))
+                    processed.add(id)
+                    if len(heap) > k:
+                        heapq.heappop(heap)
 
-        def process_function(index, vector, query):
-            distance = self.euclidean_distance(vector, query)
-            if index not in unique_neighbors:
-                unique_neighbors.add(index)
-                heapq.heappush(heap, (-distance, index))
-                if len(heap) > k:
-                    removed = heapq.heappop(heap)
-                    unique_neighbors.remove(removed[1])
-
-        self.process_batches(query, process_function)
-
-        neighbors = []
-        for dist, index in sorted(heap, reverse=True):
-            if index < len(self.url_map):
-                row = self.url_map.iloc[index]
-                neighbors.append({
-                    "Index": index,
-                    "Filename": row['filename'],
-                    "Distance": -dist,
-                    "Link": row['link']
-                })
-        return neighbors
-
-    def save_priority_neighbors_to_json(self, query, k, filename="neighbors_priority.json"):
-        neighbors = self.knn_search_linear(query, k)
         results = []
-        for neighbor in neighbors:
+        for dist, id in sorted(heap, key=lambda x: -x[0]):
+            row = self.df_images.iloc[id]
             results.append({
-                "Index": neighbor["Index"],
-                "Filename": neighbor["Filename"],
-                "Distance": neighbor["Distance"],
-                "Link": neighbor["Link"],
+                "Index": int(id),
+                "Filename": row['filename'],
+                "Distance": float(-dist),
+                "Link": row['link']
             })
-
-        # Guardar en archivo JSON
-        with open(filename, 'w') as json_file:
-            json.dump(results, json_file, indent=4)
-
-        print(f"JSON guardado exitosamente en: {filename}")
         return results
 
-# Función para convertir una imagen a un vector de características
-def obtener_vector_desde_imagen(image_path):
-    try:
-        # Cargar la imagen desde la ruta
-        img = load_img(image_path, target_size=(299, 299))
+    def save_neighbors_to_json(self, query_id, filename="neighbors.json"):
+        """Guarda resultados en formato JSON"""
+        neighbors = self.knn_search(query_id)
+        with open(filename, 'w') as json_file:
+            json.dump(neighbors, json_file, indent=4)
+        print(f"Vecinos más cercanos guardados en: {filename}")
+        return neighbors
 
-        # Convertir a un array y preprocesar
-        img_array = img_to_array(img)
-        img_array = np.expand_dims(img_array, axis=0)
-        img_array = preprocess_input(img_array)
-
-        # Obtener el vector de características
-        vector = modelo_inception.predict(img_array).flatten()
-        return vector
-    except Exception as e:
-        print(f"Error al procesar la imagen: {str(e)}")
-        return None
+def find_image_index(df, image_name):
+    """Encuentra índice de una imagen en el DataFrame"""
+    matches = df[df['filename'] == image_name]
+    if not matches.empty:
+        return matches.index[0]
+    return None
 
 if __name__ == "__main__":
-    knn = knnsecuencial()
-
-    # Ruta de la imagen de prueba
-    test_image_path = r"C:\Users\semin\OneDrive\Escritorio\bd2_code\Clonación1\Proyecto_2_BD2\app\Multidimencional\IMGEN1.jpg"
-
-    # Generar vector de consulta
-    query_vector = obtener_vector_desde_imagen(test_image_path)
-    if query_vector is None:
-        print("Error al generar el vector de características de la imagen.")
+    knn = KNNSecuencial()
+    
+    # Imagen de prueba
+    test_image = "55370.jpg"
+    test_index = find_image_index(knn.df_images, test_image)
+    
+    if test_index is not None:
+        print(f"Buscando vecinos más cercanos para: {test_image}")
+        results = knn.save_neighbors_to_json(test_index, "test_neighbors.json")
+        
+        # Mostrar resultados
+        print("\nVecinos más cercanos encontrados:")
+        for i, r in enumerate(results, 1):
+            print(f"{i}. {r['Filename']} (Distancia: {r['Distance']:.4f})")
     else:
-        print("Vector de características generado con éxito.")
-
-        # Guardar el JSON con los vecinos más cercanos
-        k = 5
-        json_filename = "test_neighbors_priority.json"
-        results = knn.save_priority_neighbors_to_json(query_vector, k, filename=json_filename)
-
-        # Verificar que el archivo JSON fue guardado
-        if os.path.exists(json_filename):
-            print(f"El archivo JSON {json_filename} se ha guardado correctamente.")
-        else:
-            print(f"Error: El archivo JSON {json_filename} no fue creado.")
+        print(f"Error: Imagen {test_image} no encontrada en el dataset")
