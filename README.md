@@ -61,9 +61,9 @@ Este proyecto es una aplicación web que permite realizar búsquedas avanzadas e
 
 # Introducción
 - [Objetivo del proyecto](#Datos)
-- [Librerías utilizadas](#librerías-utilizadas)
-- [Técnicas de indexación (usando indice invertido)](#técnica-de-indexación-de-las-librerías-utilizadas---índice-multimedia)
-- [Ténica Multimedia (usando Knn)](#como-se-realiza-el-knn-search-y-el-range-search)
+- [Descripción del dominio de datos y la importancia de aplicar
+indexación.](#librerías-utilizadas)
+
 
 ## Backend
 - [Construcción del índice invertido](#construcción-del-índice-invertido)
