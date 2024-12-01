@@ -84,7 +84,7 @@ Este proyecto es una aplicación web que permite realizar búsquedas avanzadas e
 
 <!-- Secciones -->
 
-## 1)Objetivo del proyecto
+## 1] Objetivo del proyecto
 Este proyecto tiene como objetivo diseñar e implementar un sistema de búsqueda y recuperación de datos, ya sean datos multimedia o textuales. 
 Se utilizan estructuras de datos vistas en el curso de Bases de Datos 2, tales como:
 
@@ -96,16 +96,16 @@ Además, se busca que la experiencia del usuario en la interfaz gráfica sea lo 
 entendible posible para facilitar el manejo de nuestro producto.
 
 
-## 2) Descripción del dominio de datos y la importancia de aplicar indexación.
-  ### 2.1) Búsquedas Textuales
+## 2] Descripción del dominio de datos y la importancia de aplicar indexación.
+  ### 2.1] Búsquedas Textuales
   
-  ####  2.1.1) Tipo de Datos
+  ####  2.1.1] Tipo de Datos
   
   El sistema almacena principalmente **datos textuales** en forma de registros de canciones , los cuales contienen  **18,455**. Esto incluye:
   - **Texto**: Letras de las canciones, nombres de las pistas y artistas.
   - **Metadatos**: Información adicional relacionada con cada canción, como el álbum al que pertenecen.
   
-  #### 2.1.2)  Estructura de los Datos
+  #### 2.1.2]  Estructura de los Datos
   Los datos están organizados en un archivo **CSV**, para almacenar datos tabulares. 
   Cada fila del archivo representa un registro de una canción, y las columnas contienen los diferentes atributos de cada registro. 
   Las columnas  que usaremos para la impleentación  son:
@@ -115,7 +115,7 @@ entendible posible para facilitar el manejo de nuestro producto.
   - **Track Artist**: Artista de la canción.
   - **Lyrics**: Letra de la canción.
   
-  #### 2.1.3 Origen de los Datos
+  #### 2.1.3] Origen de los Datos
   
   Los datos provienen de **https://www.kaggle.com/datasets/imuhammad/audio-features-and-lyrics-of-spotify-songs/data**, específicamente de un dataset disponible públicamente que contiene información sobre canciones en Spotify.
   Este dataset ha sido recopilado y estructurado para facilitar su uso en el proyecto.
@@ -136,7 +136,7 @@ asegurando que los resultados sean lo más cercanos posible a lo que realmente b
 
 
 
-### 1.2) Búsquedas por imágenes:
+### 2.2] Búsquedas Multidimencional:
 
 En cuanto a las búsquedas por imágenes, debido a la falta de un dataset completo que 
 contenga tanto imágenes como descripciones, decidimos trabajar con un dataset separado.
@@ -144,7 +144,7 @@ Este dataset contiene 44,000 fotos de productos comunes que se encuentran en una
 Estas imágenes serán utilizadas en el proyecto para realizar las búsquedas visuales.
 
 
-### 2.1.2) Estructura de los Datos
+### 2.2.1) Estructura de los Datos
 
 En este proyecto, estamos utilizando únicamente dos elementos del dataset:
 
@@ -153,7 +153,7 @@ En este proyecto, estamos utilizando únicamente dos elementos del dataset:
 
 Los datos que estamos utilizando se pueden encontrar en el siguiente enlace: [Fashion Product Images Dataset](https://www.kaggle.com/datasets/paramaggarwal/fashion-product-images-dataset/data).
 
-### Propósito de los Datos
+###  2.2.2) Propósito de los Datos
 
 El propósito de los datos en este sistema incluye:
 
@@ -165,6 +165,8 @@ El propósito de los datos en este sistema incluye:
 
 - **Experiencia de Usuario**: Desarrollar un sistema que permita a los usuarios buscar productos mediante la carga de imágenes, asegurando que los resultados
 - sean lo más cercanos posible a lo que realmente buscan, mejorando así la interacción con la plataforma.
+
+
 
 
 
