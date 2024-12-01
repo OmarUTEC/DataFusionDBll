@@ -108,7 +108,6 @@ Estas imágenes serán utilizadas en el proyecto para realizar las búsquedas vi
 ### Para la creación del indice invertido  y la busqueda textual se utilizaron las siguientes librerias : 
 ```python
 import os
-import io
 import json
 import math
 import pandas as pd
