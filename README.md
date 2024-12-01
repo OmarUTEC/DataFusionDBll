@@ -154,17 +154,16 @@ En este proyecto, estamos utilizando únicamente dos elementos del dataset:
 Los datos que estamos utilizando se pueden encontrar en el siguiente enlace: [Fashion Product Images Dataset](https://www.kaggle.com/datasets/paramaggarwal/fashion-product-images-dataset/data).
 
 ####  2.2.2) Propósito de los Datos
-
 El propósito de los datos en este sistema incluye:
 
 - **Análisis de Imágenes**: Implementar técnicas de análisis de imágenes para extraer características relevantes que permitan mejorar
-- la precisión en las búsquedas visuales.
+la precisión en las búsquedas visuales.
 
 - **Búsqueda Visual**: Utilizar las imágenes como fuente para permitir a los usuarios realizar búsquedas de productos basadas en consultas visuales,
--  facilitando la localización de productos de manera intuitiva y eficiente.
+facilitando la localización de productos de manera intuitiva y eficiente.
 
 - **Experiencia de Usuario**: Desarrollar un sistema que permita a los usuarios buscar productos mediante la carga de imágenes, asegurando que los resultados
-- sean lo más cercanos posible a lo que realmente buscan, mejorando así la interacción con la plataforma.
+sean lo más cercanos posible a lo que realmente buscan, mejorando así la interacción con la plataforma.
 
 
 
