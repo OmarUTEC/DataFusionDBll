@@ -1,0 +1,41 @@
+[
+    {
+        "Index": 62,
+        "Filename": "45258.jpg",
+        "Distance": 11.054131914389663,
+        "Link": "http://assets.myntassets.com/v1/images/style/properties/b8024bdd3fc47c2b20bd840f89811979_images.jpg"
+    },
+    {
+        "Index": 42,
+        "Filename": "23278.jpg",
+        "Distance": 11.86387068810804,
+        "Link": "http://assets.myntassets.com/v1/images/style/properties/93aa34922c6446706c003ba2255747f5_images.jpg"
+    },
+    {
+        "Index": 9,
+        "Filename": "30039.jpg",
+        "Distance": 12.100132661550914,
+        "Link": "http://assets.myntassets.com/v1/images/style/properties/Skagen-Men-Black-Watch_4982b2b1a76a85a85c9adc8b4b2d523a_images.jpg"
+    },
+    {
+        "Index": 38,
+        "Filename": "51658.jpg",
+        "Distance": 13.523519631579465,
+        "Link": "http://assets.myntassets.com/v1/images/style/properties/072af0cd079f20296c72f3594a21f141_images.jpg"
+    },
+    {
+        "Index": 58,
+        "Filename": "11188.jpg",
+        "Distance": 14.071539235619001,
+        "Link": "http://assets.myntassets.com/v1/images/style/properties/b2959d44db543af13d78492225a830de_images.jpg"
+<<<<<<< HEAD
+    },
+    {
+        "Index": 50,
+        "Filename": "44984.jpg",
+        "Distance": 14.399553878141552,
+        "Link": "http://assets.myntassets.com/v1/images/style/properties/676dd802241d46a5ce28c78d1dabbc5a_images.jpg"
+=======
+>>>>>>> 86e971fcbd4526ef23cb2dec0952a22681f0735c
+    }
+]
