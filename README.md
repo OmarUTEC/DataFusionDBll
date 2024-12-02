@@ -292,17 +292,177 @@ A continuación se describen los principales aspectos de esta técnica:
 
 
 ## Técnica de indexación  Indice Multidimencional
+La indexación eficiente para las colecciones de imágenes y mucho más si tienen una mucha cantidad de información es un desafío en el campo de la recuperación visual. Para abordar este problema se propone esta técnica de indexación multidimensional que permita realizar búsquedas de manera rápida y precisa.
+
+Este enfoque se basa en la extracción de características, seguido de la construcción de una estructura de indexación espacial. De esta manera, los usuarios pueden buscar imágenes similares a partir de una imagen de referencia.
+
+### Extracción de características:  
+
+- Utilizamos el modelo Inception V3 pre-entrenado en ImageNet para extraer las características de las imágenes.
+```python
+modelo = InceptionV3(weights='imagenet', include_top=False, pooling='avg')
+````
+```
 
 
+                                                    +-----------------------+
+                                                    |  Ingreso de la URL    |
+                                                    |  (Imagen)             |
+                                                    +-----------------------+
+                                                               |
+                                                               v
+                                                    +-----------------------+
+                                                    |  Cargar la imagen     |
+                                                    |  desde la URL         |
+                                                    +-----------------------+
+                                                               |
+                                                               v
+                                                    +-----------------------+
+                                                    |  Preprocesar imagen   |
+                                                    |  (Redimensionar,      |
+                                                    |  normalización)       |
+                                                    +-----------------------+
+                                                               |
+                                                               v
+                                                    +-----------------------+
+                                                    |  Pasar imagen por     |
+                                                    |  el modelo InceptionV3|
+                                                    |  (Extracción de      |
+                                                    |  características)     |
+                                                    +-----------------------+
+                                                               |
+                                                               v
+                                                    +-----------------------+
+                                                    |  Obtener el vector    |
+                                                    |  de características   |
+                                                    +-----------------------+
+                                                               |
+                                                               v
+                                                    +-----------------------+
+                                                    |  Almacenar el vector  |
+                                                    |  en archivo binario   |
+                                                    +-----------------------+
+                                                               |
+                                                               v
+                                                    +-----------------------+
+                                                    |  Fin del proceso      |
+                                                    +-----------------------+
+
+````
+### Sistema de almacenamiento
+  + Estructura de Archivos
+
+  ```plaintex
+  📁 
+  │
+  |---output.bin: Vectores de características
+  |---positiondata_file: Mapeo de posiciones
+  |---output.bin: Vectores de características
+  |---id_to_pos_file: Diccionario de IDs a posiciones
+
+  ````
+  + Formato de Datos
+    
+    Se está usando el módulo `struct` de Python para almacenar datos en formato binario
+    
+  ```python
+  data = struct.pack('i' + 'f' * len(img_encoding), id, *img_encoding)
+  position_data.write(struct.pack('i', position_seek))
+  ```
+
+  + Recuperación de datos
+    
+    Se Recupera el vector de características de una imagen que ha sido almacenada en un archivo binario, a partir de una posición dada.
+    ```python
+    data_bin = data_file.read(INTEGER_BYTES + EXPECTED_LENGTH_DATA * FLOAT_BYTES)
+    return struct.unpack('i' + 'f'*EXPECTED_LENGTH_DATA, data_bin)[1:]
+    ```
+  
 
 ## Como se realiza el KNN Search y el Range Search
-[Contenido de la sección aquí]
+El Knn Search consiste en en los K vecinos más cercanos de un punto usando la distancia euclidiana, mientras que el range search consiste en buscar los hasta una determinada distancia.
+
+### KNN Search
+Para encontrar las k-imágenes más cercanas a una imagen consulta, se realiza una búsqueda secuencial en el archivo binario donde se almacenan los vectores de características de todas las imágenes.
+
+`PROCESO DE LA BÚSQUEDA:`
+1. **Recuperación de la consulta**
+
+   Se extrae el vector de características de la imagen que se desea usar como consulta.
+   
+   ```python
+    def obtener_vector_desde_imagen(image_path):
+        try:
+            img = load_img(image_path, target_size=(299, 299))
+            img_array = img_to_array(img)
+            img_array = np.expand_dims(img_array, axis=0)
+            img_array = preprocess_input(img_array)
+            # Extracción del vector de características
+            vector = modelo_inception.predict(img_array).flatten()
+            return vector
+   ```
+
+2. **Cálculo de la distancia euclidiana**
+
+   Se calcula la distancia entre el vector de características de la consulta y los vectores de características de todas las imágenes en el conjunto de datos.
+
+   ```python
+   def euclidean_distance(self, x, y):
+    return np.sqrt(np.sum((x - y) ** 2))
+   ```
+
+3. **Selección de k-vecinos**
+
+    Utilizando una `cola de prioridad`, se seleccionan los K vecinos más cercanos en función de las distancias calculadas.
+   
+
+`FLUJO DE EJECUCIÓN`  
+
+![Flujo de ejecución](./screenshot/i1.png)
+
+
 
 ## Construcción del índice invertido
 [Contenido de la sección aquí]
 
 ## Manejo de memoria secundaria
-[Contenido de la sección aquí]
+
+
+
+1. Utilizamo el archivo `normas.js` para almacenar el índice invertido generado. El diccionario almacena la información como [pos_row]:norma.
+  ```json
+  {"0": 0.305, "1": 0.179, "2": 0.573, "3": 0.435,...}
+  
+  ```
+
+2. División en chunks para procesamiento por lotes
+   En lugar de cargar todos los datos del csv, estamos dividiendo lo datos en chunks o bloque pequeños. Se calcula el tamaño del chunk de datos basado en la memoria disponible usando la función `get_chunksize`. Esto determina cuántas filas puedes procesar en cada chunk, con el fin de no sobrecargar la memoria.
+   ```python
+   for chunk in pd.read_csv(self.ruta_csv, chunksize=TAMANIO_CHUNK, encoding='utf-8'):
+
+   ```
+3. Almacenamiento de índices parciales en archivos json
+   La función `guardar_indice_parcial` construye una ruta de archivo (ruta_indice_parcial) donde se guardará el índice parcial en formato JSON. Al guardar los índices en archivos JSON en disco, se está utilizando la memoria secundaria y asi evitamos que el índice completo se almacene en la memoria RAM.
+
+4. Fusión de un índice global
+   Una vez que todos los chunks se han procesado, los índices parciales se fusionan en un úncio índice global que abarca a todo el conjunto de datos.
+   
+   ```python
+   def _cargar_indice_completo(self):
+    indice_completo = defaultdict(dict)
+    archivos_parciales = [
+        archivo for archivo in os.listdir(self.ruta_indice)
+        if archivo.startswith("indice_parcial_")
+    ]
+    
+    for archivo in archivos_parciales:
+        ruta_archivo = os.path.join(self.ruta_indice, archivo)
+        with open(ruta_archivo, 'r') as f:
+            indice_parcial = json.load(f)...
+
+   ```
+   
+
 
 ## Ejecución óptima de consultas
 [Contenido de la sección aquí]
