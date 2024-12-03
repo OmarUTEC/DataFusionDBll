@@ -477,23 +477,8 @@ Permite buscar valores en un rango determinado en vez de buscar valores exacto.
    
 
 
-## Ejecución óptima de consultas
-[Contenido de la sección aquí]
 
-## Análisis de la maldición de la dimensionalidad y cómo mitigarlo
-[Contenido de la sección aquí]
 
-## Diseño del índice con PostgreSQL
-[Contenido de la sección aquí]
-
-## Análisis comparativo con su propia implementación
-[Contenido de la sección aquí]
-
-## Screenshots de la GUI
-[Contenido de la sección aquí]
-
-## Resultados de la query
-[Contenido de la sección aquí]
 
 ## Análisis y discusión
 [Contenido de la sección aquí]
