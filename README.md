@@ -385,6 +385,19 @@ El Knn Search consiste en en los K vecinos más cercanos de un punto usando la d
 ### KNN Search
 Para encontrar las k-imágenes más cercanas a una imagen consulta, se realiza una búsqueda secuencial en el archivo binario donde se almacenan los vectores de características de todas las imágenes.
 
+### Range Search
+Permite buscar valores en un rango determinado en vez de buscar valores exacto.
+
+**Pasos para realizar la búsqueda con los 3 mejores radios**
+1. `Obtención de radios óptimos`
+   + Mediana: representa el radio "normal"
+   + Percentil 75: radio más amplio
+   + Percentil 90: radio más inclusivo
+
+2. `Busqueda con los radios óptimos`
+   + Usamos los radios calculados
+   + Encontramos todos los vectores dentro de cada radio
+     
 `PROCESO DE LA BÚSQUEDA:`
 1. **Recuperación de la consulta**
 
@@ -513,5 +526,25 @@ Para encontrar las k-imágenes más cercanas a una imagen consulta, se realiza u
 ## IMPLEMENTACIÓN DEL INDICE INVERTIDO PARA LA BUSQUEDA TEXTUAL 
 Clase
 ## Resultados de búsqueda index postgresql
+
+Postgressql utiliza los índices para localizar de manera rápida los registros que coinciden
+1. **Creación y uso de índice GIN**
+   Hemos configurado un índice en el campo `search_vector` que almacena un vector de búsqueda. Por ejemplo, este índice se utiliza para realizar búsquedas de texto más eficientes sobre el campo lyrics.
+2. **Vectorización de texto con pesos por campo**
+   ```python
+    setweight(to_tsvector('english', COALESCE(NEW.track_id,'')), 'A') ||
+    setweight(to_tsvector('english', COALESCE(NEW.track_name,'')), 'B') ||
+    setweight(to_tsvector('english', COALESCE(NEW.track_artist,'')), 'C') ||
+    setweight(to_tsvector('english', COALESCE(NEW.lyrics,'')), 'D')
+
+   ```
+4. **Ranking de resultados por similitud**
+   `ts_rank_cd`: Calcula la relevancia
+5. **Búsqueda**
+   ```python
+   results = db.search("love", 5)
+   ```
+   ![Interfaz de usuario](./screenshot/i2.jpg)
+
 
 ![Resultados de búsqueda](./screenshot/postgresql.jpeg)
