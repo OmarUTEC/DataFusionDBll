@@ -529,7 +529,5 @@ Postgressql utiliza los índices para localizar de manera rápida los registros 
    ```python
    results = db.search("love", 5)
    ```
-   ![Interfaz de usuario](./screenshot/i2.png)
-
 
 ![Resultados de búsqueda](./screenshot/postgresql.jpeg)
