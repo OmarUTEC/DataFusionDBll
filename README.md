@@ -55,7 +55,6 @@ Este proyecto es una aplicación web que permite realizar búsquedas avanzadas e
 |-------------------|-------|
 | Aldair Seminario | Creación de índice invertido, Implementación de SPIMI para busqueda textual y diseño de frontend|
 | Nicol Campoverde | Adaptación del frontend con el backend y implementación de busqueda por imágenes                |
-| OMAR             | Procesamiento de archivos csv y además  del desarrollo de la base de datos en postgres          |
 
 
 
@@ -187,9 +186,46 @@ experiencia general del usuario.
    ![Interfaz de usuario](./screenshot/D1.png)
 
   
-  ###  3.2] Ejecución óptima de consultas aplicando Similitud de Coseno
+## Manejo de memoria secundaria
+
+
+
+1. Utilizamo el archivo `normas.js` para almacenar el índice invertido generado. El diccionario almacena la información como [pos_row]:norma.
+  ```json
+  {"0": 0.305, "1": 0.179, "2": 0.573, "3": 0.435,...}
   
-  ###  3.3] Explique cómo se construye el índice invertido en PostgreSQL/MongoDB
+  ```
+
+2. División en chunks para procesamiento por lotes
+   En lugar de cargar todos los datos del csv, estamos dividiendo lo datos en chunks o bloque pequeños. Se calcula el tamaño del chunk de datos basado en la memoria disponible usando la función `get_chunksize`. Esto determina cuántas filas puedes procesar en cada chunk, con el fin de no sobrecargar la memoria.
+   ```python
+   for chunk in pd.read_csv(self.ruta_csv, chunksize=TAMANIO_CHUNK, encoding='utf-8'):
+
+   ```
+3. Almacenamiento de índices parciales en archivos json
+   La función `guardar_indice_parcial` construye una ruta de archivo (ruta_indice_parcial) donde se guardará el índice parcial en formato JSON. Al guardar los índices en archivos JSON en disco, se está utilizando la memoria secundaria y asi evitamos que el índice completo se almacene en la memoria RAM.
+
+4. Fusión de un índice global
+   Una vez que todos los chunks se han procesado, los índices parciales se fusionan en un úncio índice global que abarca a todo el conjunto de datos.
+   
+   ```python
+   def _cargar_indice_completo(self):
+    indice_completo = defaultdict(dict)
+    archivos_parciales = [
+        archivo for archivo in os.listdir(self.ruta_indice)
+        if archivo.startswith("indice_parcial_")
+    ]
+    
+    for archivo in archivos_parciales:
+        ruta_archivo = os.path.join(self.ruta_indice, archivo)
+        with open(ruta_archivo, 'r') as f:
+            indice_parcial = json.load(f)...
+
+   ```
+   
+
+
+
   
 Postgressql utiliza los índices para localizar de manera rápida los registros que coinciden
 1. **Creación y uso de índice GIN**
@@ -352,54 +388,6 @@ Permite buscar valores en un rango determinado en vez de buscar valores exacto.
 `FLUJO DE EJECUCIÓN`  
 
 ![Flujo de ejecución](./screenshot/i1.png)
-
-
-
-## Construcción del índice invertido
-[Contenido de la sección aquí]
-
-## Manejo de memoria secundaria
-
-
-
-1. Utilizamo el archivo `normas.js` para almacenar el índice invertido generado. El diccionario almacena la información como [pos_row]:norma.
-  ```json
-  {"0": 0.305, "1": 0.179, "2": 0.573, "3": 0.435,...}
-  
-  ```
-
-2. División en chunks para procesamiento por lotes
-   En lugar de cargar todos los datos del csv, estamos dividiendo lo datos en chunks o bloque pequeños. Se calcula el tamaño del chunk de datos basado en la memoria disponible usando la función `get_chunksize`. Esto determina cuántas filas puedes procesar en cada chunk, con el fin de no sobrecargar la memoria.
-   ```python
-   for chunk in pd.read_csv(self.ruta_csv, chunksize=TAMANIO_CHUNK, encoding='utf-8'):
-
-   ```
-3. Almacenamiento de índices parciales en archivos json
-   La función `guardar_indice_parcial` construye una ruta de archivo (ruta_indice_parcial) donde se guardará el índice parcial en formato JSON. Al guardar los índices en archivos JSON en disco, se está utilizando la memoria secundaria y asi evitamos que el índice completo se almacene en la memoria RAM.
-
-4. Fusión de un índice global
-   Una vez que todos los chunks se han procesado, los índices parciales se fusionan en un úncio índice global que abarca a todo el conjunto de datos.
-   
-   ```python
-   def _cargar_indice_completo(self):
-    indice_completo = defaultdict(dict)
-    archivos_parciales = [
-        archivo for archivo in os.listdir(self.ruta_indice)
-        if archivo.startswith("indice_parcial_")
-    ]
-    
-    for archivo in archivos_parciales:
-        ruta_archivo = os.path.join(self.ruta_indice, archivo)
-        with open(ruta_archivo, 'r') as f:
-            indice_parcial = json.load(f)...
-
-   ```
-   
-
-
-
-
-
 
 
 # 4] Frontend 
