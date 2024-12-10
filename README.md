@@ -444,7 +444,6 @@ Para optimizar la experiencia del usuario en nuestro producto, hemos puesto un e
 
 ![Resultados de búsqueda](./screenshot/R1.png)
 
-![Resultados de búsqueda](./screenshot/IMGEN_POSTGRES.png.png)
 
 ## 4.2] Manual de uso 
 
@@ -455,6 +454,7 @@ Para optimizar la experiencia del usuario en nuestro producto, hemos puesto un e
 
 
 ## Resultados de búsqueda index postgresql
+![Resultados de búsqueda](./screenshot/IMGEN_POSTGRES.png.png)
 
 
 ## 4.3] Análisis comparativo visual con otras implementaciones
@@ -472,8 +472,6 @@ manera más agradable y ordenada, lo que mejora la experiencia del usuario y hac
 
 ## Análisis y discusión
 [Contenido de la sección aquí]
-
-
 
 
 
