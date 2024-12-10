@@ -189,8 +189,25 @@ experiencia general del usuario.
   
   ###  3.2] Ejecución óptima de consultas aplicando Similitud de Coseno
   
-  ###  3.3] Explique cómo se construye el índice invertido en
-  PostgreSQL/MongoDB
+  ###  3.3] Explique cómo se construye el índice invertido en PostgreSQL/MongoDB
+  
+Postgressql utiliza los índices para localizar de manera rápida los registros que coinciden
+1. **Creación y uso de índice GIN**
+   Hemos configurado un índice en el campo `search_vector` que almacena un vector de búsqueda. Por ejemplo, este índice se utiliza para realizar búsquedas de texto más eficientes sobre el campo lyrics.
+2. **Vectorización de texto con pesos por campo**
+   ```python
+    setweight(to_tsvector('english', COALESCE(NEW.track_id,'')), 'A') ||
+    setweight(to_tsvector('english', COALESCE(NEW.track_name,'')), 'B') ||
+    setweight(to_tsvector('english', COALESCE(NEW.track_artist,'')), 'C') ||
+    setweight(to_tsvector('english', COALESCE(NEW.lyrics,'')), 'D')
+
+   ```
+4. **Ranking de resultados por similitud**
+   `ts_rank_cd`: Calcula la relevancia
+5. **Búsqueda**
+   ```python
+   results = db.search("love", 5)
+   ```
 
 ## 4] Backend : Índice Multidimensional 
 
@@ -496,24 +513,5 @@ A continuación se describen los principales aspectos de esta técnica:
 
 ![Resultados de búsqueda](./screenshot/R1.png)
 
-## IMPLEMENTACIÓN DEL INDICE INVERTIDO PARA LA BUSQUEDA TEXTUAL 
-Clase
 ## Resultados de búsqueda index postgresql
 
-Postgressql utiliza los índices para localizar de manera rápida los registros que coinciden
-1. **Creación y uso de índice GIN**
-   Hemos configurado un índice en el campo `search_vector` que almacena un vector de búsqueda. Por ejemplo, este índice se utiliza para realizar búsquedas de texto más eficientes sobre el campo lyrics.
-2. **Vectorización de texto con pesos por campo**
-   ```python
-    setweight(to_tsvector('english', COALESCE(NEW.track_id,'')), 'A') ||
-    setweight(to_tsvector('english', COALESCE(NEW.track_name,'')), 'B') ||
-    setweight(to_tsvector('english', COALESCE(NEW.track_artist,'')), 'C') ||
-    setweight(to_tsvector('english', COALESCE(NEW.lyrics,'')), 'D')
-
-   ```
-4. **Ranking de resultados por similitud**
-   `ts_rank_cd`: Calcula la relevancia
-5. **Búsqueda**
-   ```python
-   results = db.search("love", 5)
-   ```
