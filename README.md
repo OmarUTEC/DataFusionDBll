@@ -468,6 +468,11 @@ manera más agradable y ordenada, lo que mejora la experiencia del usuario y hac
 ![Resultados de búsqueda](./screenshot/Doc_I.png)
 
 
+El proyecto es una solución muy interesante que combina búsquedas textuales y visuales, abordando dos necesidades distintas con gran efectividad. El uso del índice invertido para las búsquedas textuales es un gran acierto, ya que permite localizar información de forma rápida y precisa, sin necesidad de recorrer toda la base de datos. Además, integrar herramientas como la similitud del coseno y los índices GIN de PostgreSQL asegura que las respuestas a las consultas sean no solo rápidas, sino también relevantes, lo que mejora significativamente la experiencia del usuario.
+
+En el caso de las búsquedas visuales, el enfoque es igualmente sólido. La implementación del modelo Inception V3 para extraer características de las imágenes aporta precisión y confiabilidad a los resultados. Sin embargo, esta funcionalidad puede ser exigente en términos de rendimiento, especialmente si no se dispone de hardware adecuado. Aun así, técnicas como la búsqueda por vecinos más cercanos (KNN) y la búsqueda por rangos optimizan los resultados y permiten obtener respuestas cercanas a lo que el usuario necesita, demostrando un balance adecuado entre precisión y funcionalidad.
+
+En cuanto a la experiencia del usuario, la interfaz gráfica es clara, sencilla y eficiente, lo que facilita la interacción con el sistema. Este enfoque intuitivo asegura que los usuarios puedan aprovechar las funcionalidades del proyecto sin complicaciones. Sin embargo, un área de mejora sería la compatibilidad con dispositivos móviles, considerando que cada vez más usuarios acceden a plataformas desde sus teléfonos. 
 
 
 ## Análisis y discusión
