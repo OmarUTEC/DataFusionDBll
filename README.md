@@ -245,6 +245,43 @@ Postgressql utiliza los índices para localizar de manera rápida los registros 
    results = db.search("love", 5)
    ```
 
+## Técnica de indexación de las librerías utilizadas - Índice  invertido
+
+En la implementación del índice invertido, se ha optado por una estrategia que permite manejar eficientemente grandes volúmenes de datos, 
+asegurando un uso óptimo de la memoria y un acceso rápido a los registros.
+A continuación se describen los principales aspectos de esta técnica:
+
+### Carga de Datos en Chunks
+
+- El procesamiento de datos se realiza en **chunks** (porciones) de tamaño definido (`TAMANIO_CHUNK`), lo que permite cargar solo una parte del dataset en memoria principal.
+-  Esto evita la sobrecarga de memoria y mejora el rendimiento al trabajar con datasets extensos.
+
+### Construcción del Índice Invertido
+- Se crea un índice invertido que asocia cada término con los IDs de los documentos donde aparece.
+  Esta estructura facilita las búsquedas rápidas, ya que permite acceder directamente a los documentos relevantes sin necesidad de escanear todo el conjunto de datos.
+
+### Almacenamiento de IDs y Características
+
+- Los IDs de los documentos se almacenan en un archivo de forma que se pueden recuperar fácilmente. Además, las características de los documentos se calculan y almacenan en un formato que permite un acceso eficiente.
+ Esto se complementa con el uso de técnicas de **normalización logarítmica** para calcular la frecuencia de los términos, lo que mejora la precisión de las consultas.
+
+### Manejo de Stopwords
+
+- Se implementa un mecanismo para filtrar palabras irrelevantes (stopwords) utilizando una lista cargada desde un archivo externo. Esto ayuda a reducir el ruido en las consultas y a mejorar la relevancia de los resultados.
+
+### Búsqueda y Recuperación
+
+- El motor de consulta utiliza el índice invertido para procesar las consultas de manera eficiente. Se calcula la similitud coseno entre los términos de la consulta y los documentos en el índice, permitiendo una recuperación rápida de los documentos más relevantes.
+
+## Beneficios
+
+- **Eficiencia en la Búsqueda**: La estructura del índice invertido permite realizar búsquedas rápidas y efectivas, reduciendo el tiempo de respuesta al evitar búsquedas lineales en grandes conjuntos de datos.
+- **Optimización del Uso de Recursos**: Al cargar datos en chunks y almacenar características en memoria secundaria, se maximiza el uso de la memoria, lo que es crucial para el manejo de grandes volúmenes de información.
+
+
+
+
+
 ## 4] Backend : Índice Multidimensional 
 
 ## Técnica de indexación  Indice Multidimencional
@@ -430,71 +467,12 @@ manera más agradable y ordenada, lo que mejora la experiencia del usuario y hac
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-## Técnica de indexación de las librerías utilizadas - Índice  invertido
-
-En la implementación del índice invertido, se ha optado por una estrategia que permite manejar eficientemente grandes volúmenes de datos, 
-asegurando un uso óptimo de la memoria y un acceso rápido a los registros.
-A continuación se describen los principales aspectos de esta técnica:
-
-### Carga de Datos en Chunks
-
-- El procesamiento de datos se realiza en **chunks** (porciones) de tamaño definido (`TAMANIO_CHUNK`), lo que permite cargar solo una parte del dataset en memoria principal.
--  Esto evita la sobrecarga de memoria y mejora el rendimiento al trabajar con datasets extensos.
-
-### Construcción del Índice Invertido
-- Se crea un índice invertido que asocia cada término con los IDs de los documentos donde aparece.
-  Esta estructura facilita las búsquedas rápidas, ya que permite acceder directamente a los documentos relevantes sin necesidad de escanear todo el conjunto de datos.
-
-### Almacenamiento de IDs y Características
-
-- Los IDs de los documentos se almacenan en un archivo de forma que se pueden recuperar fácilmente. Además, las características de los documentos se calculan y almacenan en un formato que permite un acceso eficiente.
- Esto se complementa con el uso de técnicas de **normalización logarítmica** para calcular la frecuencia de los términos, lo que mejora la precisión de las consultas.
-
-### Manejo de Stopwords
-
-- Se implementa un mecanismo para filtrar palabras irrelevantes (stopwords) utilizando una lista cargada desde un archivo externo. Esto ayuda a reducir el ruido en las consultas y a mejorar la relevancia de los resultados.
-
-### Búsqueda y Recuperación
-
-- El motor de consulta utiliza el índice invertido para procesar las consultas de manera eficiente. Se calcula la similitud coseno entre los términos de la consulta y los documentos en el índice, permitiendo una recuperación rápida de los documentos más relevantes.
-
-## Beneficios
-
-- **Eficiencia en la Búsqueda**: La estructura del índice invertido permite realizar búsquedas rápidas y efectivas, reduciendo el tiempo de respuesta al evitar búsquedas lineales en grandes conjuntos de datos.
-- **Optimización del Uso de Recursos**: Al cargar datos en chunks y almacenar características en memoria secundaria, se maximiza el uso de la memoria, lo que es crucial para el manejo de grandes volúmenes de información.
-
-
-
 ## Análisis y discusión
 [Contenido de la sección aquí]
 
 
 
 
-
-
-## Interfaz del usuario principal
-
-![Interfaz de usuario](./screenshot/main.jpeg)
-
-## Resultados de búsqueda index invertido 
-
-![Resultados de búsqueda](./screenshot/interfaz_1.png)
-
-## Interfaz del usuario principal para Busqueda de imágenes
-![Resultados de búsqueda](./screenshot/interfaz_2.png)
 
 
 ## Resultados de búsqueda  de imágenes 
