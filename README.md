@@ -453,6 +453,8 @@ Para optimizar la experiencia del usuario en nuestro producto, hemos puesto un e
 ![Resultados de búsqueda](./screenshot/MANUAL_2.png)
 
 
+## Resultados de búsqueda index postgresql
+
 
 ## 4.3] Análisis comparativo visual con otras implementaciones
 En nuestra investigación, encontramos un software llamado DocFetcher(https://docfetcher.sourceforge.io/es/screenshots.html), que hace algo similar a lo que estamos buscando: recuperar información y realizar búsquedas de texto. Este programa permite indexar carpetas o archivos, 
@@ -475,9 +477,5 @@ manera más agradable y ordenada, lo que mejora la experiencia del usuario y hac
 
 
 
-## Resultados de búsqueda  de imágenes 
 
-![Resultados de búsqueda](./screenshot/R1.png)
-
-## Resultados de búsqueda index postgresql
 
