@@ -192,104 +192,7 @@ experiencia general del usuario.
   ###  3.3] Explique cómo se construye el índice invertido en
   PostgreSQL/MongoDB
 
-
-
-
-# 4] Frontend 
-
-## 4.1] Frontend Diseño de la GUI
-Para optimizar la experiencia del usuario en nuestro producto, hemos puesto un enfoque especial en su comodidad y facilidad de uso. Por ello, hemos diseñado una 
-**interfaz amigable e intuitiva** que permite a los usuarios interactuar con el sistema sin complicaciones.
-### 4.1.1]  Diseño de la GUI Para busquedas textuales 
-
-![Interfaz de usuario](./screenshot/main.jpeg)
-
-![Resultados de búsqueda](./screenshot/interfaz_1.png)
-
-### 4.1.1]  Diseño de la GUI Para busquedas Por imágenes 
-
-![Resultados de búsqueda](./screenshot/interfaz_2.png)
-
-![Resultados de búsqueda](./screenshot/R1.png)
-
-
-## 4.2] Manual de uso 
-
-### 4.2.1] BUSQUEDA TEXTUAL  : 
-![Resultados de búsqueda](./screenshot/MANUAL_1.png)
-### 4.2.1] BUSQUEDA IMÁGENES   : 
-![Resultados de búsqueda](./screenshot/MANUAL_2.png)
-
-
-
-## 4.3] Análisis comparativo visual con otras implementaciones
-En nuestra investigación, encontramos un software llamado DocFetcher(https://docfetcher.sourceforge.io/es/screenshots.html), que hace algo similar a lo que estamos buscando: recuperar información y realizar búsquedas de texto. Este programa permite indexar carpetas o archivos, 
-lo que facilita encontrar palabras clave y muestra en qué archivos aparecen. Sin embargo, su interfaz, aunque es bastante comprensible, se siente un poco apagada y anticuada, lo que puede dar la impresión de que es una aplicación vieja. 
-Además, el botón para crear un índice no se ve claramente, lo que puede complicar su uso sin tener que ver videos explicativos. Los resultados de búsqueda tampoco son muy atractivos. En comparación, nuestro diseño es más llamativo y presenta la información de
-manera más agradable y ordenada, lo que mejora la experiencia del usuario y hace que sea más fácil entender los datos. 
-
-
-
-![Resultados de búsqueda](./screenshot/Doc_I.png)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Técnica de indexación de las librerías utilizadas - Índice  invertido
-
-En la implementación del índice invertido, se ha optado por una estrategia que permite manejar eficientemente grandes volúmenes de datos, 
-asegurando un uso óptimo de la memoria y un acceso rápido a los registros.
-A continuación se describen los principales aspectos de esta técnica:
-
-### Carga de Datos en Chunks
-
-- El procesamiento de datos se realiza en **chunks** (porciones) de tamaño definido (`TAMANIO_CHUNK`), lo que permite cargar solo una parte del dataset en memoria principal.
--  Esto evita la sobrecarga de memoria y mejora el rendimiento al trabajar con datasets extensos.
-
-### Construcción del Índice Invertido
-- Se crea un índice invertido que asocia cada término con los IDs de los documentos donde aparece.
-  Esta estructura facilita las búsquedas rápidas, ya que permite acceder directamente a los documentos relevantes sin necesidad de escanear todo el conjunto de datos.
-
-### Almacenamiento de IDs y Características
-
-- Los IDs de los documentos se almacenan en un archivo de forma que se pueden recuperar fácilmente. Además, las características de los documentos se calculan y almacenan en un formato que permite un acceso eficiente.
- Esto se complementa con el uso de técnicas de **normalización logarítmica** para calcular la frecuencia de los términos, lo que mejora la precisión de las consultas.
-
-### Manejo de Stopwords
-
-- Se implementa un mecanismo para filtrar palabras irrelevantes (stopwords) utilizando una lista cargada desde un archivo externo. Esto ayuda a reducir el ruido en las consultas y a mejorar la relevancia de los resultados.
-
-### Búsqueda y Recuperación
-
-- El motor de consulta utiliza el índice invertido para procesar las consultas de manera eficiente. Se calcula la similitud coseno entre los términos de la consulta y los documentos en el índice, permitiendo una recuperación rápida de los documentos más relevantes.
-
-## Beneficios
-
-- **Eficiencia en la Búsqueda**: La estructura del índice invertido permite realizar búsquedas rápidas y efectivas, reduciendo el tiempo de respuesta al evitar búsquedas lineales en grandes conjuntos de datos.
-- **Optimización del Uso de Recursos**: Al cargar datos en chunks y almacenar características en memoria secundaria, se maximiza el uso de la memoria, lo que es crucial para el manejo de grandes volúmenes de información.
-
-
-
-
-
-
-
-
-
-
-
+## 4] Backend : Índice Multidimensional 
 
 ## Técnica de indexación  Indice Multidimencional
 La indexación eficiente para las colecciones de imágenes y mucho más si tienen una mucha cantidad de información es un desafío en el campo de la recuperación visual. Para abordar este problema se propone esta técnica de indexación multidimensional que permita realizar búsquedas de manera rápida y precisa.
@@ -480,12 +383,97 @@ Permite buscar valores en un rango determinado en vez de buscar valores exacto.
 
 
 
+
+
+# 4] Frontend 
+
+## 4.1] Frontend Diseño de la GUI
+Para optimizar la experiencia del usuario en nuestro producto, hemos puesto un enfoque especial en su comodidad y facilidad de uso. Por ello, hemos diseñado una 
+**interfaz amigable e intuitiva** que permite a los usuarios interactuar con el sistema sin complicaciones.
+### 4.1.1]  Diseño de la GUI Para busquedas textuales 
+
+![Interfaz de usuario](./screenshot/main.jpeg)
+
+![Resultados de búsqueda](./screenshot/interfaz_1.png)
+
+### 4.1.1]  Diseño de la GUI Para busquedas Por imágenes 
+
+![Resultados de búsqueda](./screenshot/interfaz_2.png)
+
+![Resultados de búsqueda](./screenshot/R1.png)
+
+
+## 4.2] Manual de uso 
+
+### 4.2.1] BUSQUEDA TEXTUAL  : 
+![Resultados de búsqueda](./screenshot/MANUAL_1.png)
+### 4.2.1] BUSQUEDA IMÁGENES   : 
+![Resultados de búsqueda](./screenshot/MANUAL_2.png)
+
+
+
+## 4.3] Análisis comparativo visual con otras implementaciones
+En nuestra investigación, encontramos un software llamado DocFetcher(https://docfetcher.sourceforge.io/es/screenshots.html), que hace algo similar a lo que estamos buscando: recuperar información y realizar búsquedas de texto. Este programa permite indexar carpetas o archivos, 
+lo que facilita encontrar palabras clave y muestra en qué archivos aparecen. Sin embargo, su interfaz, aunque es bastante comprensible, se siente un poco apagada y anticuada, lo que puede dar la impresión de que es una aplicación vieja. 
+Además, el botón para crear un índice no se ve claramente, lo que puede complicar su uso sin tener que ver videos explicativos. Los resultados de búsqueda tampoco son muy atractivos. En comparación, nuestro diseño es más llamativo y presenta la información de
+manera más agradable y ordenada, lo que mejora la experiencia del usuario y hace que sea más fácil entender los datos. 
+
+
+
+![Resultados de búsqueda](./screenshot/Doc_I.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Técnica de indexación de las librerías utilizadas - Índice  invertido
+
+En la implementación del índice invertido, se ha optado por una estrategia que permite manejar eficientemente grandes volúmenes de datos, 
+asegurando un uso óptimo de la memoria y un acceso rápido a los registros.
+A continuación se describen los principales aspectos de esta técnica:
+
+### Carga de Datos en Chunks
+
+- El procesamiento de datos se realiza en **chunks** (porciones) de tamaño definido (`TAMANIO_CHUNK`), lo que permite cargar solo una parte del dataset en memoria principal.
+-  Esto evita la sobrecarga de memoria y mejora el rendimiento al trabajar con datasets extensos.
+
+### Construcción del Índice Invertido
+- Se crea un índice invertido que asocia cada término con los IDs de los documentos donde aparece.
+  Esta estructura facilita las búsquedas rápidas, ya que permite acceder directamente a los documentos relevantes sin necesidad de escanear todo el conjunto de datos.
+
+### Almacenamiento de IDs y Características
+
+- Los IDs de los documentos se almacenan en un archivo de forma que se pueden recuperar fácilmente. Además, las características de los documentos se calculan y almacenan en un formato que permite un acceso eficiente.
+ Esto se complementa con el uso de técnicas de **normalización logarítmica** para calcular la frecuencia de los términos, lo que mejora la precisión de las consultas.
+
+### Manejo de Stopwords
+
+- Se implementa un mecanismo para filtrar palabras irrelevantes (stopwords) utilizando una lista cargada desde un archivo externo. Esto ayuda a reducir el ruido en las consultas y a mejorar la relevancia de los resultados.
+
+### Búsqueda y Recuperación
+
+- El motor de consulta utiliza el índice invertido para procesar las consultas de manera eficiente. Se calcula la similitud coseno entre los términos de la consulta y los documentos en el índice, permitiendo una recuperación rápida de los documentos más relevantes.
+
+## Beneficios
+
+- **Eficiencia en la Búsqueda**: La estructura del índice invertido permite realizar búsquedas rápidas y efectivas, reduciendo el tiempo de respuesta al evitar búsquedas lineales en grandes conjuntos de datos.
+- **Optimización del Uso de Recursos**: Al cargar datos en chunks y almacenar características en memoria secundaria, se maximiza el uso de la memoria, lo que es crucial para el manejo de grandes volúmenes de información.
+
+
+
 ## Análisis y discusión
 [Contenido de la sección aquí]
-
-
-
-
 
 
 
