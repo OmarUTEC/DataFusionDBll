@@ -444,6 +444,7 @@ Para optimizar la experiencia del usuario en nuestro producto, hemos puesto un e
 
 ![Resultados de búsqueda](./screenshot/R1.png)
 
+![Resultados de búsqueda](./screenshot/IMGEN_POSTGRES.png.png)
 
 ## 4.2] Manual de uso 
 
