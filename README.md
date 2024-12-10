@@ -454,7 +454,7 @@ Para optimizar la experiencia del usuario en nuestro producto, hemos puesto un e
 
 
 ## Resultados de búsqueda index postgresql
-![Resultados de búsqueda](./screenshot/IMGEN_POSTGRES.png.png)
+![Resultados de búsqueda](./screenshot/IMGEN_POSTGRES.png)
 
 
 ## 4.3] Análisis comparativo visual con otras implementaciones
