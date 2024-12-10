@@ -470,9 +470,6 @@ manera más agradable y ordenada, lo que mejora la experiencia del usuario y hac
 
 
 ## Análisis y discusión
-[Contenido de la sección aquí]
-
-
 
 El proyecto es una solución muy interesante que combina búsquedas textuales y visuales, abordando dos necesidades distintas con gran efectividad. El uso del índice invertido para las búsquedas textuales es un gran acierto, ya que permite localizar información de forma rápida y precisa, sin necesidad de recorrer toda la base de datos. Además, integrar herramientas como la similitud del coseno y los índices GIN de PostgreSQL asegura que las respuestas a las consultas sean no solo rápidas, sino también relevantes, lo que mejora significativamente la experiencia del usuario.
 
